@@ -7,6 +7,7 @@
 updateCustomTextInput(
   inputId,
   value = NULL,
+  placeholder = NULL,
   session = getDefaultReactiveDomain()
 )
 }
@@ -14,6 +15,8 @@ updateCustomTextInput(
 \item{inputId}{The id of the input object.}
 
 \item{value}{The value to set for the input object.}
+
+\item{placeholder}{The placeholder to set for the input object.}
 
 \item{session}{The session object passed to function given to shiny server.}
 }

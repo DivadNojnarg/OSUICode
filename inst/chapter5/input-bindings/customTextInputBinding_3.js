@@ -15,7 +15,9 @@ $(function() {
     },
     receiveMessage: function(el, data) {
       console.log(data);
-      this.setValue(el, data);
+      if (data.hasOwnProperty('value')) {
+        this.setValue(el, data.value);
+      }
     }
   });
 

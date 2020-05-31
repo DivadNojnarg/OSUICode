@@ -103,6 +103,7 @@ customTextInputDeps <- function(binding_step) {
 #'
 #' @param inputId The id of the input object.
 #' @param value The value to set for the input object.
+#' @param placeholder The placeholder to set for the input object.
 #' @param session The session object passed to function given to shiny server.
 #' @export
 #'
@@ -131,7 +132,14 @@ customTextInputDeps <- function(binding_step) {
 updateCustomTextInput <- function(
   inputId,
   value = NULL,
+  placeholder = NULL,
   session = getDefaultReactiveDomain())
 {
-  session$sendInputMessage(inputId, message = value)
+  message <- shiny:::dropNulls(
+    list(
+      value = value,
+      placeholder = placeholder
+    )
+  )
+  session$sendInputMessage(inputId, message)
 }
