@@ -13,7 +13,7 @@ validate_width(width)
 An error is raised if conditions are not met
 }
 \description{
-Validate a Tabler element width.
+Validate a Tabler element width like \link{tabler_card}.
 }
 \examples{
 validate_width(-1)
