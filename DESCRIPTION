@@ -1,19 +1,21 @@
 Package: OSUICode
-Title: What the Package Does (One Line, Title Case)
+Title: Standalone Code for "Outstanding Shiny User Interfaces"
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "David",
            family = "Granjon",
            role = c("aut", "cre"),
            email = "dgranjon@ymail.com")
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to
-    pick a license
+Description: This package provides standalone code for the "Outstanding
+    Shiny User Interfaces" book. I allows the user to seamlessly follow the book
+    without having to manually source the code from snippets. 
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Imports: 
-    magrittr
+    magrittr,
+    htmltools
 Suggests: 
     testthat
