@@ -20,9 +20,11 @@
 #' if (interactive()) {
 #' library(shiny)
 #'
-#'  # This example corresponds to section 5.4.2.1
+#'  # This example corresponds to section 5.4.2.1 (Find the input)
 #'  customTextInputExample(1)
 #'
+#'  # This example corresponds to section 5.4.2.3 (Get the value)
+#'  customTextInputExample(2)
 #' }
 customTextInput <- function (inputId, label, value = "", width = NULL, placeholder = NULL, binding_step) {
 

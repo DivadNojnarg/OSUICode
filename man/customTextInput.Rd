@@ -40,8 +40,10 @@ This is to showcase how to develop Shiny custom inputs (see Chapter 5.4)
 if (interactive()) {
 library(shiny)
 
- # This example corresponds to section 5.4.2.1
+ # This example corresponds to section 5.4.2.1 (Find the input)
  customTextInputExample(1)
 
+ # This example corresponds to section 5.4.2.3 (Get the value)
+ customTextInputExample(2)
 }
 }
