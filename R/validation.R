@@ -185,7 +185,7 @@ equals <- function(a, b) {
 #' Check that tag has specific properties
 #'
 #' Return TRUE if a tag object matches a specific id, and/or tag name, and/or
-#  class, and or other arbitrary tag attributes.
+#  class, and or other arbitrary tag attributes. This function is borrowed from shinydashboard.
 #'
 #' @param item Tag to validate.
 #' @param ... Any attribute to check (must be named).
@@ -261,3 +261,36 @@ validate_tabName <- function(tabName) {
 }
 # validate_tabName("test%") # fails
 validate_tabName("plop")
+
+
+
+
+#' Find the child of the targeted element that has a specific attribute and value.
+#'
+#' This function takes a DOM element/tag object and reccurs within it until
+#  it finds a child which has an attribute called `attr` and with value `val`
+#  (and returns TRUE). If it finds an element with an attribute called `attr`
+#  whose value is NOT `val`, it returns FALSE. If it exhausts all children
+#  and it doesn't find an element with an attribute called `attr`, it also
+#  returns FALSE. This function is borrowed from shinydashboard.
+#'
+#' @param x Parent tag.
+#' @param attr Atttribute like id, class, data-toggle, ...
+#' @param val Attribute value.
+#'
+#' @return TRUE or FALSE, depending on the search result
+#' @export
+findAttribute <- function(x, attr, val) {
+  if (is.atomic(x)) return(FALSE) # exhausted this branch of the tree
+
+  if (!is.null(x$attribs[[attr]])) { # found attribute called `attr`
+    if (identical(x$attribs[[attr]], val)) return(TRUE)
+    else return(FALSE)
+  }
+
+  if (length(x$children) > 0) { # recursion
+    return(any(unlist(lapply(x$children, findAttribute, attr, val))))
+  }
+
+  return(FALSE) # found no attribute called `attr`
+}
