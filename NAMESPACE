@@ -3,5 +3,7 @@
 export("%>%")
 export(customTextInput)
 export(customTextInputDeps)
+export(customTextInputExample)
 import(htmltools)
+import(shiny)
 importFrom(magrittr,"%>%")

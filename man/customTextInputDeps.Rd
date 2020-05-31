@@ -4,10 +4,10 @@
 \alias{customTextInputDeps}
 \title{Add necessary dependencies for the \link{customTextInput}}
 \usage{
-customTextInputDeps(step)
+customTextInputDeps(binding_step)
 }
 \arguments{
-\item{step}{Input binding step. Each step corresponds to a specific method
+\item{binding_step}{Input binding step. Each step corresponds to a specific method
 of the full input binding. For instance, step 1 only includes the find method,
 step 2 contains, find + getValue...}
 }

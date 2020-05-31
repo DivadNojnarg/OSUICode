@@ -16,6 +16,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Imports: 
     magrittr,
-    htmltools
+    htmltools,
+    shiny
 Suggests: 
     testthat

@@ -18,20 +18,11 @@
 #'
 #' @examples
 #' if (interactive()) {
-#'  library(shiny)
-#'  ui <- fluidPage(
-#'    customTextInput(
-#'     inputId = "caption",
-#'     label = "Caption",
-#'     value = "Data Summary",
-#'     binding_step = 1
-#'    ),
-#'    textOutput("customText")
-#'  )
-#'  server <- function(input, output) {
-#'    output$customText <- renderText(input$caption)
-#'  }
-#'  shinyApp(ui, server)
+#' library(shiny)
+#'
+#'  # This example corresponds to section 5.4.2.1
+#'  customTextInputExample(1)
+#'
 #' }
 customTextInput <- function (inputId, label, value = "", width = NULL, placeholder = NULL, binding_step) {
 
@@ -60,23 +51,46 @@ customTextInput <- function (inputId, label, value = "", width = NULL, placehold
 
 
 
+#' Wrapper for Shiny App example
+#'
+#' @param binding_step Input binding step. See \link{customTextInput}.
+#'
+#' @return A Shiny App example
+#' @export
+customTextInputExample <- function(binding_step) {
+  ui <- fluidPage(
+    customTextInput(
+      inputId = "caption",
+      label = "Caption",
+      value = "Data Summary",
+      binding_step = binding_step
+    ),
+    textOutput("customText")
+  )
+  server <- function(input, output) {
+    output$customText <- renderText(input$caption)
+  }
+  shinyApp(ui, server)
+}
+
+
 #' Add necessary dependencies for the \link{customTextInput}
 #'
 #' The step provides a way to follow the Chapter 1 book section.
 #' For instance, if step = 1, it means that we consider the 5.4.2.1 Find the input section, and so on,
 #' until the fully complete binding.
 #'
-#' @param step Input binding step. Each step corresponds to a specific method
+#' @param binding_step Input binding step. Each step corresponds to a specific method
 #' of the full input binding. For instance, step 1 only includes the find method,
 #' step 2 contains, find + getValue...
 #'
 #' @return An html dependency for \link{customTextInput}.
 #' @export
-customTextInputDeps <- function(step) {
+customTextInputDeps <- function(binding_step) {
   htmlDependency(
     name = "customTextBindings",
     version = "1.0.0",
     src = c(file = system.file("chapter5/input-bindings", package = "OSUICode")),
-    script = paste0("customTextInputBinding_", step, ".js")
+    script = paste0("customTextInputBinding_", binding_step, ".js")
   )
 }

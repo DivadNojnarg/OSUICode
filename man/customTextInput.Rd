@@ -38,19 +38,10 @@ This is to showcase how to develop Shiny custom inputs (see Chapter 5.4)
 }
 \examples{
 if (interactive()) {
- library(shiny)
- ui <- fluidPage(
-   customTextInput(
-    inputId = "caption",
-    label = "Caption",
-    value = "Data Summary",
-    binding_step = 1
-   ),
-   textOutput("customText")
- )
- server <- function(input, output) {
-   output$customText <- renderText(input$caption)
- }
- shinyApp(ui, server)
+library(shiny)
+
+ # This example corresponds to section 5.4.2.1
+ customTextInputExample(1)
+
 }
 }
