@@ -67,10 +67,10 @@ customTextInputExample <- function(binding_step) {
       value = "Data Summary",
       binding_step = binding_step
     ),
-    textOutput("customText")
+    textOutput("custom_text")
   )
   server <- function(input, output) {
-    output$customText <- renderText(input$caption)
+    output$custom_text <- renderText(input$caption)
   }
   shinyApp(ui, server)
 }
@@ -95,4 +95,43 @@ customTextInputDeps <- function(binding_step) {
     src = c(file = system.file("chapter5/input-bindings", package = "OSUICode")),
     script = paste0("customTextInputBinding_", binding_step, ".js")
   )
+}
+
+
+
+#' Update \link{customTextInput} on the client side
+#'
+#' @param inputId The id of the input object.
+#' @param value The value to set for the input object.
+#' @param session The session object passed to function given to shiny server.
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'  # This example corresponds to section 5.4.2.4 (Set and update)
+#'  ui <- fluidPage(
+#'   customTextInput(
+#'    "caption",
+#'    "Caption",
+#'    "Data Summary",
+#'    binding_step = 3
+#'    ),
+#'   actionButton("update", "Update text!", class = "btn-success"),
+#'   textOutput("custom_text")
+#'  )
+#'
+#'  server <- function(input, output, session) {
+#'    output$custom_text <- renderText(input$caption)
+#'    observeEvent(input$update, {
+#'      updateCustomTextInput("caption", value = "new text")
+#'    })
+#'  }
+#'  shinyApp(ui, server)
+#' }
+updateCustomTextInput <- function(
+  inputId,
+  value = NULL,
+  session = getDefaultReactiveDomain())
+{
+  session$sendInputMessage(inputId, message = value)
 }
