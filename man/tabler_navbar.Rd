@@ -32,6 +32,8 @@ Create the Tabler navbar
 \examples{
 if (interactive()) {
  library(shiny)
+
+ # example without JS
  ui <- tabler_page(
   tabler_navbar(
     brand_url = "https://preview-dev.tabler.io",
@@ -69,5 +71,8 @@ if (interactive()) {
  )
  server <- function(input, output) {}
  shinyApp(ui, server)
+
+ # example with custom JS code to activate tabs
+ shinyAppDir(system.file("chapter12/tabler_tabs", package = "OSUICode"))
 }
 }
