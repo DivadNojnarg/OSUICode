@@ -42,5 +42,5 @@ $(function() {
     }
   });
 
-  Shiny.inputBindings.register(navbarMenuBinding, 'text');
+  Shiny.inputBindings.register(navbarMenuBinding, 'navbar-menu');
 });
