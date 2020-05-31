@@ -16,6 +16,8 @@ TRUE if the test pass.
 Validate the status of a Tabler element like \link{tabler_card}.
 }
 \examples{
-validate_status("danger")
-validate_status("maroon")
+\dontrun{
+ validate_status("danger")
+ validate_status("maroon")
+}
 }

@@ -16,7 +16,9 @@ An error is raised if conditions are not met
 Validate a Tabler element width like \link{tabler_card}.
 }
 \examples{
-validate_width(-1)
-validate_width(13)
-validate_width("string")
+\dontrun{
+ validate_width(-1)
+ validate_width(13)
+ validate_width("string")
+}
 }

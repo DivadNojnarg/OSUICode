@@ -17,6 +17,8 @@ Validate a Tabler card padding. See \link{tabler_card}
 for more informations.
 }
 \examples{
-validate_padding("xs")
-validate_padding("sm")
+\dontrun{
+ validate_padding("xs")
+ validate_padding("sm")
+}
 }

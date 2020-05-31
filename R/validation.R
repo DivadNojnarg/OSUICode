@@ -8,9 +8,11 @@
 #' @export
 #'
 #' @examples
-#' validate_width(-1)
-#' validate_width(13)
-#' validate_width("string")
+#' \dontrun{
+#'  validate_width(-1)
+#'  validate_width(13)
+#'  validate_width("string")
+#' }
 validate_width <- function(width) {
   if (is.numeric(width)) {
     if (width < 1 || width > 12) {
@@ -44,8 +46,10 @@ valid_statuses <- c(
 #' @export
 #'
 #' @examples
-#' validate_status("danger")
-#' validate_status("maroon")
+#' \dontrun{
+#'  validate_status("danger")
+#'  validate_status("maroon")
+#' }
 validate_status <- function(status) {
 
   if (is.null(status)) {
@@ -76,8 +80,10 @@ valid_paddings <- c("sm", "md", "lg")
 #' @export
 #'
 #' @examples
-#' validate_padding("xs")
-#' validate_padding("sm")
+#' \dontrun{
+#'  validate_padding("xs")
+#'  validate_padding("sm")
+#' }
 validate_padding <- function(padding) {
   if (!is.null(padding)) {
     if (!(padding %in% valid_paddings)) {
@@ -85,4 +91,146 @@ validate_padding <- function(padding) {
            paste(valid_paddings, collapse = ", "), ".")
     }
   }
+}
+
+
+# Return TRUE if a shiny.tag object has a CSS class, FALSE otherwise.
+hasCssClass <- function(tag, class) {
+  if (is.null(tag$attribs) || is.null(tag$attribs$class))
+    return(FALSE)
+
+  classes <- strsplit(tag$attribs$class, " +")[[1]]
+  return(class %in% classes)
+}
+
+
+#' Check that a tag has specific properties
+#'
+#' Check for type and class. Raise an error if the conditions
+#' are not fulfilled. This function is borrowed from shinydashboard.
+#'
+#' @param tag Tag to check.
+#' @param type Expected type.
+#' @param class Expected class.
+#' @param allowUI ?
+#'
+#' @return An error if conditions are not met
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'  library(shiny)
+#'  myTag <- div(class = "bg-blue")
+#'  tagAssert(myTag, type = "div")
+#'  tagAssert(myTag, type = "li") # will fail
+#'  tagAssert(myTag, class = "bg-blue")
+#' }
+tagAssert <- function(tag, type = NULL, class = NULL, allowUI = TRUE) {
+  if (!inherits(tag, "shiny.tag")) {
+    print(tag)
+    stop("Expected an object with class 'shiny.tag'.")
+  }
+
+  # Skip dynamic output elements
+  if (allowUI &&
+      (hasCssClass(tag, "shiny-html-output") ||
+       hasCssClass(tag, "shinydashboard-menu-output"))) {
+    return()
+  }
+
+  if (!is.null(type) && tag$name != type) {
+    stop("Expected tag to be of type ", type)
+  }
+
+  if (!is.null(class)) {
+    if (is.null(tag$attribs$class)) {
+      stop("Expected tag to have class '", class, "'")
+
+    } else {
+      tagClasses <- strsplit(tag$attribs$class, " ")[[1]]
+      if (!(class %in% tagClasses)) {
+        stop("Expected tag to have class '", class, "'")
+      }
+    }
+  }
+}
+
+
+
+
+# This is like a==b, except that if a or b is NULL or an empty vector, it won't
+# return logical(0). If a AND b are NULL/length-0, this will return TRUE; if
+# just one of them is NULL/length-0, this will FALSE. This is for use in
+# conditionals where `if(logical(0))` would cause an error. Similar to using
+# identical(a,b), but less stringent about types: `equals(1, 1L)` is TRUE, but
+# `identical(1, 1L)` is FALSE.
+equals <- function(a, b) {
+  alen <- length(a)
+  blen <- length(b)
+  if (alen==0 && blen==0) {
+    return(TRUE)
+  }
+  if (alen > 1 || blen > 1) {
+    stop("Can only compare objects of length 0 or 1")
+  }
+  if (alen==0 || blen==0) {
+    return(FALSE)
+  }
+
+  a == b
+}
+
+
+
+#' Check that tag has specific properties
+#'
+#' Return TRUE if a tag object matches a specific id, and/or tag name, and/or
+#  class, and or other arbitrary tag attributes.
+#'
+#' @param item Tag to validate.
+#' @param ... Any attribute to check (must be named).
+#' @param id Expected id.
+#' @param name Expected name.
+#' @param class Expected class.
+#'
+#' @return TRUE or FALSE, depending on the test result.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'  library(shiny)
+#'  myTag <- div(class = "bg-blue")
+#'  tagMatches(myTag, id = "d")
+#'  tagMatches(myTag, class = "bg-blue")
+#' }
+tagMatches <- function(item, ..., id = NULL, name = NULL, class = NULL) {
+  dots <- list(...)
+  if (!inherits(item, "shiny.tag")) {
+    return(FALSE)
+  }
+  if (!is.null(id) && !equals(item$attribs$id, id)) {
+    return(FALSE)
+  }
+  if (!is.null(name) && !equals(item$name, name)) {
+    return(FALSE)
+  }
+  if (!is.null(class)) {
+    if (is.null(item$attribs$class)) {
+      return(FALSE)
+    }
+    classes <- strsplit(item$attribs$class, " ")[[1]]
+    if (! class %in% classes) {
+      return(FALSE)
+    }
+  }
+
+  for (i in seq_along(dots)) {
+    arg     <- dots[[i]]
+    argName <- names(dots)[[i]]
+    if (!equals(item$attribs[[argName]], arg)) {
+      return(FALSE)
+    }
+  }
+
+  TRUE
 }
