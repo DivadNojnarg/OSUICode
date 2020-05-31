@@ -7,6 +7,15 @@ tablers_deps <- htmlDependency(
   stylesheet = "css/tabler.min.css"
 )
 
+# contains bindings and other JS code
+tabler_custom_js <- htmlDependency(
+  name = "tabler-bindings",
+  version = "1.0.7",
+  src = c(href = "tabler/input-bindings", file = "input-bindings"),
+  package = "OSUICode",
+  script = "navbarMenuBinding.js"
+)
+
 # Bootstrap 4 dependencies
 bs4_deps <- htmlDependency(
   name = "Bootstrap",
@@ -33,7 +42,7 @@ jQuery_deps <- htmlDependency(
 #' @seealso \link{tabler_page}.
 add_tabler_deps <- function(tag) {
   # below, the order is of critical importance!
-  deps <- list(bs4_deps, tablers_deps)
+  deps <- list(bs4_deps, tablers_deps, tabler_custom_js)
   attachDependencies(tag, deps, append = TRUE)
 }
 
@@ -286,9 +295,10 @@ tabler_navbar <- function(..., brand_url = NULL, brand_image = NULL, nav_menu, n
 #' Create the Tabler navbar menu
 #'
 #' @param ... Slot for \link{tabler_navbar_menu_item}.
+#' @param inputId Optional: used to recover the currently selected tab item.
 #' @export
-tabler_navbar_menu <- function(...) {
-  tags$ul(class = "nav nav-pills navbar-nav", ...)
+tabler_navbar_menu <- function(..., inputId = NULL) {
+  tags$ul(id = inputId, class = "nav nav-pills navbar-nav", ...)
 }
 
 
@@ -350,6 +360,87 @@ tabler_tab_item <- function(tabName = NULL, ...) {
     id = tabName,
     ...
   )
+}
+
+
+
+#' Update the currently selected \link{tabler_navbar_menu_item} on the client
+#'
+#' @param inputId \link{tabler_navbar_menu} id.
+#' @param value New target.
+#' @param session Shiny session.
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'  library(shiny)
+#'  # example with input binding: inputId is required for tabler_navbar_menu!!!
+#'  ui <- tabler_page(
+#'   tabler_navbar(
+#'     brand_url = "https://preview-dev.tabler.io",
+#'     brand_image = "https://preview-dev.tabler.io/static/logo.svg",
+#'     nav_menu = tabler_navbar_menu(
+#'       id = "current_tab",
+#'       tabler_navbar_menu_item(
+#'         text = "Tab 1",
+#'         icon = NULL,
+#'         tabName = "tab1",
+#'         selected = TRUE
+#'       ),
+#'       tabler_navbar_menu_item(
+#'         text = "Tab 2",
+#'         icon = NULL,
+#'         tabName = "tab2"
+#'       )
+#'     ),
+#'     tabler_button("update", "Change tab", icon = icon("exchange-alt"))
+#'   ),
+#'   tabler_body(
+#'     tabler_tab_items(
+#'       tabler_tab_item(
+#'         tabName = "tab1",
+#'         sliderInput(
+#'           "obs",
+#'           "Number of observations:",
+#'           min = 0,
+#'           max = 1000,
+#'           value = 500
+#'         ),
+#'         plotOutput("distPlot")
+#'       ),
+#'       tabler_tab_item(
+#'         tabName = "tab2",
+#'         p("Second Tab")
+#'       )
+#'     ),
+#'     footer = tabler_footer(
+#'       left = "Rstats, 2020",
+#'       right = a(href = "https://www.google.com")
+#'     )
+#'   )
+#'  )
+#'  server <- function(input, output, session) {
+#'    output$distPlot <- renderPlot({
+#'      hist(rnorm(input$obs))
+#'    })
+#'
+#'    observeEvent(input$current_tab, {
+#'      showNotification(
+#'        paste("Hello", input$current_tab),
+#'        type = "message",
+#'        duration = 1
+#'      )
+#'    })
+#'
+#'    observeEvent(input$update, {
+#'      newTab <- if (input$current_tab == "tab1") "tab2" else "tab1"
+#'      update_tabler_tab_item("current_tab", newTab)
+#'    })
+#'  }
+#'  shinyApp(ui, server)
+#' }
+update_tabler_tab_item <- function(inputId, value, session = getDefaultReactiveDomain()) {
+  session$sendInputMessage(inputId, message = value)
 }
 
 

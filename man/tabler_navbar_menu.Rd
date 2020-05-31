@@ -4,10 +4,12 @@
 \alias{tabler_navbar_menu}
 \title{Create the Tabler navbar menu}
 \usage{
-tabler_navbar_menu(...)
+tabler_navbar_menu(..., inputId = NULL)
 }
 \arguments{
 \item{...}{Slot for \link{tabler_navbar_menu_item}.}
+
+\item{inputId}{Optional: used to recover the currently selected tab item.}
 }
 \description{
 Create the Tabler navbar menu
