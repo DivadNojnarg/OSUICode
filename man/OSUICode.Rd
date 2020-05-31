@@ -4,3 +4,6 @@
 \name{OSUICode}
 \alias{OSUICode}
 \title{OSUICode}
+\description{
+Code for the "Outstanding User Interfaces with Shiny" book
+}

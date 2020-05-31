@@ -47,7 +47,7 @@ library(shiny)
  customTextInputExample(2)
 
  # This example corresponds to section 5.4.2.6 (Setting rate policies). At that
- stage, the binding is fully working
+ # stage, the binding is fully working
  customTextInputExample(6)
 }
 }

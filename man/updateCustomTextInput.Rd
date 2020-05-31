@@ -28,12 +28,12 @@ if (interactive()) {
  # This example corresponds to section 5.4.2.4 (Set and update)
  updateCustomTextInputExample(3)
  # This example corresponds to section 5.4.2.5 (Subscribe) with
- a missing event listener. The value in the input change but not the one
- displayed by Shiny.
+ # a missing event listener. The value in the input change but not the one
+ # displayed by Shiny.
  updateCustomTextInputExample(4)
 
  # This example corresponds to section 5.4.2.5 (Subscribe) with an
- extra event listener allowing to properly update the value
+ # extra event listener allowing to properly update the value
  updateCustomTextInputExample(5)
 }
 }

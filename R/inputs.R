@@ -27,7 +27,7 @@
 #'  customTextInputExample(2)
 #'
 #'  # This example corresponds to section 5.4.2.6 (Setting rate policies). At that
-#'  stage, the binding is fully working
+#'  # stage, the binding is fully working
 #'  customTextInputExample(6)
 #' }
 customTextInput <- function (inputId, label, value = "", width = NULL, placeholder = NULL, binding_step) {
@@ -116,12 +116,12 @@ customTextInputDeps <- function(binding_step) {
 #'  # This example corresponds to section 5.4.2.4 (Set and update)
 #'  updateCustomTextInputExample(3)
 #'  # This example corresponds to section 5.4.2.5 (Subscribe) with
-#'  a missing event listener. The value in the input change but not the one
-#'  displayed by Shiny.
+#'  # a missing event listener. The value in the input change but not the one
+#'  # displayed by Shiny.
 #'  updateCustomTextInputExample(4)
 #'
 #'  # This example corresponds to section 5.4.2.5 (Subscribe) with an
-#'  extra event listener allowing to properly update the value
+#'  # extra event listener allowing to properly update the value
 #'  updateCustomTextInputExample(5)
 #' }
 updateCustomTextInput <- function(
