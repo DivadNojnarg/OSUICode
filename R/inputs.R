@@ -25,6 +25,10 @@
 #'
 #'  # This example corresponds to section 5.4.2.3 (Get the value)
 #'  customTextInputExample(2)
+#'
+#'  # This example corresponds to section 5.4.2.6 (Setting rate policies). At that
+#'  stage, the binding is fully working
+#'  customTextInputExample(6)
 #' }
 customTextInput <- function (inputId, label, value = "", width = NULL, placeholder = NULL, binding_step) {
 
@@ -110,24 +114,15 @@ customTextInputDeps <- function(binding_step) {
 #' @examples
 #' if (interactive()) {
 #'  # This example corresponds to section 5.4.2.4 (Set and update)
-#'  ui <- fluidPage(
-#'   customTextInput(
-#'    "caption",
-#'    "Caption",
-#'    "Data Summary",
-#'    binding_step = 3
-#'    ),
-#'   actionButton("update", "Update text!", class = "btn-success"),
-#'   textOutput("custom_text")
-#'  )
+#'  updateCustomTextInputExample(3)
+#'  # This example corresponds to section 5.4.2.5 (Subscribe) with
+#'  a missing event listener. The value in the input change but not the one
+#'  displayed by Shiny.
+#'  updateCustomTextInputExample(4)
 #'
-#'  server <- function(input, output, session) {
-#'    output$custom_text <- renderText(input$caption)
-#'    observeEvent(input$update, {
-#'      updateCustomTextInput("caption", value = "new text")
-#'    })
-#'  }
-#'  shinyApp(ui, server)
+#'  # This example corresponds to section 5.4.2.5 (Subscribe) with an
+#'  extra event listener allowing to properly update the value
+#'  updateCustomTextInputExample(5)
 #' }
 updateCustomTextInput <- function(
   inputId,
@@ -135,11 +130,40 @@ updateCustomTextInput <- function(
   placeholder = NULL,
   session = getDefaultReactiveDomain())
 {
-  message <- shiny:::dropNulls(
+  message <- dropNulls(
     list(
       value = value,
       placeholder = placeholder
     )
   )
   session$sendInputMessage(inputId, message)
+}
+
+
+
+#' Wrapper for Shiny App example
+#'
+#' @param binding_step Input binding step. See \link{customTextInput}.
+#'
+#' @return A Shiny App example
+#' @export
+updateCustomTextInputExample <- function(binding_step) {
+  ui <- fluidPage(
+    customTextInput(
+      "caption",
+      "Caption",
+      "Data Summary",
+      binding_step = binding_step
+    ),
+    actionButton("update", "Update text!", class = "btn-success"),
+    textOutput("custom_text")
+  )
+
+  server <- function(input, output, session) {
+    output$custom_text <- renderText(input$caption)
+    observeEvent(input$update, {
+      updateCustomTextInput("caption", value = "new text")
+    })
+  }
+  shinyApp(ui, server)
 }

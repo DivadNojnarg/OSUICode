@@ -26,23 +26,14 @@ Update \link{customTextInput} on the client side
 \examples{
 if (interactive()) {
  # This example corresponds to section 5.4.2.4 (Set and update)
- ui <- fluidPage(
-  customTextInput(
-   "caption",
-   "Caption",
-   "Data Summary",
-   binding_step = 3
-   ),
-  actionButton("update", "Update text!", class = "btn-success"),
-  textOutput("custom_text")
- )
+ updateCustomTextInputExample(3)
+ # This example corresponds to section 5.4.2.5 (Subscribe) with
+ a missing event listener. The value in the input change but not the one
+ displayed by Shiny.
+ updateCustomTextInputExample(4)
 
- server <- function(input, output, session) {
-   output$custom_text <- renderText(input$caption)
-   observeEvent(input$update, {
-     updateCustomTextInput("caption", value = "new text")
-   })
- }
- shinyApp(ui, server)
+ # This example corresponds to section 5.4.2.5 (Subscribe) with an
+ extra event listener allowing to properly update the value
+ updateCustomTextInputExample(5)
 }
 }
