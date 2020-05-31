@@ -234,3 +234,30 @@ tagMatches <- function(item, ..., id = NULL, name = NULL, class = NULL) {
 
   TRUE
 }
+
+
+
+
+#' Validate a tab name
+#'
+#' Check if the provided tab name follows jQuery best practices
+#'
+#' @param tabName Tab name to validate
+#'
+#' @return An error if conditions are not met.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'  validate_tabName("plop")
+#'  validate_tabName("plop*+?") # fails
+#' }
+#' @importFrom stringr str_extract_all str_c
+validate_tabName <- function(tabName) {
+  temp <- grepl("[[:punct:]]", tabName)
+  wrong_selector <- stringr::str_extract_all(tabName, "[[:punct:]]")[[1]] %>%
+    stringr::str_c(collapse = "")
+  if (temp) stop(paste("Please do not use punctuation characters like",  wrong_selector,"in tabNames. This might cause JavaScript issues."))
+}
+# validate_tabName("test%") # fails
+validate_tabName("plop")
