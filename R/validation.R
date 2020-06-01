@@ -294,3 +294,18 @@ findAttribute <- function(x, attr, val) {
 
   return(FALSE) # found no attribute called `attr`
 }
+
+
+
+
+#' Validate a \link{tabler_progress} value
+#'
+#' @param value Value to validate.
+#'
+#' @return An error is raised if the value does not met expectations.
+#' @export
+validate_progress_value <- function(value) {
+  if (!is.numeric(value)) stop("Progress value must be numeric!")
+  range <- (value >= 0 && value <= 100)
+  if (!(range)) stop("Progress value must be between 0 and 100.")
+}

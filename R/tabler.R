@@ -11,9 +11,12 @@ tablers_deps <- htmlDependency(
 tabler_custom_js <- htmlDependency(
   name = "tabler-bindings",
   version = "1.0.7",
-  src = c(href = "tabler/input-bindings", file = "input-bindings"),
+  src = c(href = "tabler"),
   package = "OSUICode",
-  script = "navbarMenuBinding.js"
+  script = c(
+    "input-bindings/navbarMenuBinding.js",
+    "tabler_progress_handler.js"
+  )
 )
 
 # Bootstrap 4 dependencies
@@ -696,4 +699,74 @@ tabler_switch <- function(inputId, label, value = FALSE, width = NULL) {
 update_tabler_switch <- function (session, inputId, label = NULL, value = NULL) {
   message <- dropNulls(list(label = label, value = value))
   session$sendInputMessage(inputId, message)
+}
+
+
+
+
+#' Create a Tabler progress bar
+#'
+#' The progress bar may be updated server side. See \link{update_tabler_progress}.
+#'
+#' @param id Progress unique id.
+#' @param value Progress value. Numeric between 0 and 100.
+#'
+#' @return A progress bar tag.
+#' @export
+tabler_progress <- function(id = NULL, value) {
+
+  validate_progress_value(value)
+
+  div(
+    class = "progress",
+    div(
+      id = id,
+      class = "progress-bar",
+      style = paste0("width: ", value, "%"),
+      role = "progressbar",
+      `aria-valuenow` = as.character(value),
+      `aria-valuemin` = "0",
+      `aria-valuemax` = "100",
+      span(class = "sr-only", paste0(value,"% complete"))
+    )
+  )
+}
+
+#' Update a \link{tabler_progress} on the client
+#'
+#' @param id Progress unique id.
+#' @param value New value.
+#' @param session Shiny session object.
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'  library(shiny)
+#'  library(shinyWidgets)
+#'  ui <- tabler_page(
+#'   tabler_body(
+#'     noUiSliderInput(
+#'       inputId = "progress_value",
+#'       label = "Progress value",
+#'       min = 0,
+#'       max = 100,
+#'       value = 20
+#'     ),
+#'     tabler_progress(id = "progress1", 12)
+#'   )
+#'  )
+#'
+#'  server <- function(input, output, session) {
+#'    observeEvent(input$progress_value, {
+#'      update_tabler_progress(
+#'        id = "progress1",
+#'        input$progress_value
+#'      )
+#'    })
+#'  }
+#'  shinyApp(ui, server)
+#' }
+update_tabler_progress <- function(id, value, session = shiny::getDefaultReactiveDomain()) {
+  message <- list(id = session$ns(id), value = value)
+  session$sendCustomMessage(type = "update-progress", message)
 }
