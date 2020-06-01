@@ -15,7 +15,8 @@ tabler_custom_js <- htmlDependency(
   package = "OSUICode",
   script = c(
     "input-bindings/navbarMenuBinding.js",
-    "tabler_progress_handler.js"
+    "tabler_progress_handler.js",
+    "tabler_toast_handler.js"
   )
 )
 
@@ -713,6 +714,7 @@ update_tabler_switch <- function (session, inputId, label = NULL, value = NULL) 
 #'
 #' @return A progress bar tag.
 #' @export
+#' @seealso \link{update_tabler_progress}
 tabler_progress <- function(id = NULL, value) {
 
   validate_progress_value(value)
@@ -769,4 +771,109 @@ tabler_progress <- function(id = NULL, value) {
 update_tabler_progress <- function(id, value, session = shiny::getDefaultReactiveDomain()) {
   message <- list(id = session$ns(id), value = value)
   session$sendCustomMessage(type = "update-progress", message)
+}
+
+
+
+
+#' Create a Tabler toast
+#'
+#' Display user feedback
+#'
+#' @param id Unique toast id.
+#' @param title Toast title.
+#' @param subtitle Toast subtitle.
+#' @param ... Toast content.
+#' @param img Toast image.
+#'
+#' @return A toast
+#' @export
+#' @seealso \link{show_tabler_toast}
+tabler_toast <- function(id, title = NULL, subtitle = NULL, ..., img = NULL) {
+
+  toast_header <- div(
+    class = "toast-header",
+    if (!is.null(img)) {
+      span(
+        class = "avatar mr-2",
+        style = sprintf("background-image: url(%s)", img)
+      )
+    },
+    if (!is.null(title)) strong(class = "mr-2", title),
+    if (!is.null(subtitle)) tags$small(subtitle)
+  )
+
+  toast_body <- div(class = "toast-body", ...)
+
+  toast_wrapper <- div(
+    id = id,
+    class = "toast",
+    role = "alert",
+    style = "position: absolute; top: 0; right: 0;",
+    `aria-live` = "assertive",
+    `aria-atomic` = "true",
+    `data-toggle` = "toast"
+  )
+
+  toast_wrapper %>% tagAppendChildren(toast_header, toast_body)
+}
+
+
+
+
+#' Show a tabler toast on the client
+#'
+#' @param id Toast id.
+#' @param options Toast options: see \url{https://getbootstrap.com/docs/4.3/components/toasts/}.
+#' @param session Shiny session
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'  library(shiny)
+#'  ui <- tabler_page(
+#'   tabler_toast(
+#'     id = "toast",
+#'     title = "Hello",
+#'     subtitle = "now",
+#'     "Toast body",
+#'     img = "https://preview-dev.tabler.io/static/logo.svg"
+#'   ),
+#'   tabler_button("launch", "Go!", width = "25%")
+#'  )
+#'
+#'  server <- function(input, output, session) {
+#'    observe(print(input$toast))
+#'    observeEvent(input$launch, {
+#'      removeNotification("notif")
+#'      show_tabler_toast(
+#'        "toast",
+#'        options = list(
+#'          animation = FALSE,
+#'          delay = 3000
+#'        )
+#'      )
+#'    })
+#'
+#'    observeEvent(input$toast, {
+#'      showNotification(
+#'        id = "notif",
+#'        "Toast was closed",
+#'        type = "warning",
+#'        duration = 1,
+#'
+#'      )
+#'    })
+#'  }
+#'
+#'  shinyApp(ui, server)
+#' }
+show_tabler_toast <- function(id, options = NULL, session = getDefaultReactiveDomain()) {
+  message <- dropNulls(
+    list(
+      id = id,
+      options = options
+    )
+  )
+  session$sendCustomMessage(type = "tabler-toast", message)
 }

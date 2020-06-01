@@ -17,3 +17,6 @@ A progress bar tag.
 \description{
 The progress bar may be updated server side. See \link{update_tabler_progress}.
 }
+\seealso{
+\link{update_tabler_progress}
+}
