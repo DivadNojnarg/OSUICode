@@ -18,6 +18,6 @@ The JS answer is an alert containing the message sent by R.
 \examples{
 if (interactive()) {
  library(shiny)
- shinyAppDir(system.file("chapter5/say_hello", package="OSUICode"))
+ shinyAppDir(system.file("chapter6/say_hello", package = "OSUICode"))
 }
 }

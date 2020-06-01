@@ -10,7 +10,7 @@
 #' @examples
 #' if (interactive()) {
 #'  library(shiny)
-#'  shinyAppDir(system.file("chapter5/say_hello", package="OSUICode"))
+#'  shinyAppDir(system.file("chapter6/say_hello", package = "OSUICode"))
 #' }
 say_hello_to_js <- function(text, session = getDefaultReactiveDomain()) {
   session$sendCustomMessage(type = 'say-hello', message = text)
