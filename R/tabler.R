@@ -16,7 +16,8 @@ tabler_custom_js <- htmlDependency(
   script = c(
     "input-bindings/navbarMenuBinding.js",
     "tabler_progress_handler.js",
-    "tabler_toast_handler.js"
+    "tabler_toast_handler.js",
+    "tabler_dropdown_handler.js"
   )
 )
 
@@ -876,4 +877,129 @@ show_tabler_toast <- function(id, options = NULL, session = getDefaultReactiveDo
     )
   )
   session$sendCustomMessage(type = "tabler-toast", message)
+}
+
+
+
+
+#' Create a tabler dropdown menu
+#'
+#' This must be inserted in \link{tabler_navbar}
+#'
+#' @param ... Slot for \link{tabler_dropdown_item}
+#' @param id Optional: this is to be able to toggle the dropdown based on
+#' another event like after a click on an action button.
+#' @param title Dropdown title
+#' @param subtitle Dropdown subtitle
+#' @param img Dropdown image.
+#'
+#' @return A dropdown menu container.
+#' @export
+#' @seealso \link{show_tabler_dropdown}.
+tabler_dropdown <- function(..., id = NULL, title, subtitle = NULL, img = NULL) {
+
+  img_tag <- if (!is.null(img)) {
+    span(
+      class = "avatar",
+      style = sprintf("background-image: url(%s)", img)
+    )
+  }
+
+  titles_tag <- div(
+    class = "d-none d-xl-block pl-2",
+    div(title),
+    if (!is.null(subtitle)) {
+      div(class = "mt-1 small text-muted", subtitle)
+    }
+  )
+
+  link_tag <- a(
+    href = "#",
+    id = id,
+    class = "nav-link d-flex lh-1 text-reset p-0",
+    `data-toggle` = "dropdown",
+    `aria-expanded` = "false"
+  ) %>%
+    tagAppendChildren(img_tag, titles_tag)
+
+  dropdown_tag <- div(
+    class = "dropdown-menu dropdown-menu-right",
+    `aria-labelledby` = id,
+    ...
+  )
+
+  div(class = "nav-item dropdown") %>% tagAppendChildren(
+    link_tag,
+    dropdown_tag
+  )
+}
+
+
+
+
+#' Create Tabler dropdown item
+#'
+#' @param ... Content.
+#' @param id Optional. If provided, the current item will behave like
+#' a \link{tabler_button}.
+#' @export
+tabler_dropdown_item <- function(..., id = NULL) {
+  a(id = id, class = "dropdown-item action-button", href = "#", ...)
+}
+
+
+
+#' Show a \link{tabler_dropdown} on the client
+#'
+#' @param id Dropdown id.
+#' @param session Shiny session
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'  ui <- tabler_page(
+#'   tabler_navbar(
+#'     brand_url = "https://preview-dev.tabler.io",
+#'     brand_image = "https://preview-dev.tabler.io/static/logo.svg",
+#'     nav_menu = NULL,
+#'     tabler_dropdown(
+#'       id = "mydropdown",
+#'       title = "Dropdown",
+#'       subtitle = "click me",
+#'       tabler_dropdown_item(
+#'         id = "item1",
+#'         "Show Notification"
+#'       ),
+#'       tabler_dropdown_item(
+#'         "Do nothing"
+#'       )
+#'     )
+#'   ),
+#'   tabler_body(
+#'     tabler_button("show", "Open dropdown", width = "25%"),
+#'     footer = tabler_footer(
+#'       left = "Rstats, 2020",
+#'       right = a(href = "https://www.google.com")
+#'     )
+#'   )
+#'  )
+#'  server <- function(input, output, session) {
+#'
+#'    observeEvent(input$show, {
+#'      show_tabler_dropdown("mydropdown")
+#'    })
+#'
+#'    observeEvent(input$item1, {
+#'      showNotification(
+#'        "Success",
+#'        type = "message",
+#'        duration = 2,
+#'
+#'      )
+#'    })
+#'  }
+#'  shinyApp(ui, server)
+#' }
+show_tabler_dropdown <- function(id, session = getDefaultReactiveDomain()) {
+  session$sendCustomMessage(type = "show-dropdown", message = id)
 }
