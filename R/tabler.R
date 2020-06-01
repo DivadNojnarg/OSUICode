@@ -17,7 +17,8 @@ tabler_custom_js <- htmlDependency(
     "input-bindings/navbarMenuBinding.js",
     "tabler_progress_handler.js",
     "tabler_toast_handler.js",
-    "tabler_dropdown_handler.js"
+    "tabler_dropdown_handler.js",
+    "tabler_insert_tab_handler.js"
   )
 )
 
@@ -1002,4 +1003,159 @@ tabler_dropdown_item <- function(..., id = NULL) {
 #' }
 show_tabler_dropdown <- function(id, session = getDefaultReactiveDomain()) {
   session$sendCustomMessage(type = "show-dropdown", message = id)
+}
+
+
+
+
+#' Insert a tab in a \link{tabler_navbar}
+#'
+#' @param inputId Tabler navbar menu unique id.
+#' @param tab Tab to insert. Must be a \link{tabler_tab_item}.
+#' @param target Target tab after or before which the new tab will be inserted.
+#' @param position Insert position: "before" or "after".
+#' @param select Whether to select the new tab at start. Default to FALSE.
+#' @param handler_type Only for the Book purpose. Allow to select a given
+#' custom message handler, to produce different behavior. You don't need
+#' this in production!
+#' @param session Shiny session.
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'  library(shiny)
+#'  # See book section 15.4 (Tab events)
+#'  # insert tab with wrong custom handler. The tab is inserted
+#'  # but nothing is displayed inside.
+#'  insert_tabler_tab_example(1)
+#'
+#'  # insert tab with good custom handler.
+#'  insert_tabler_tab_example(2)
+#' }
+insert_tabler_tab <- function(inputId, tab, target, position = c("before", "after"),
+                              select = FALSE, handler_type, session = getDefaultReactiveDomain()) {
+
+  inputId <- session$ns(inputId)
+  position <- match.arg(position)
+  navbar_menu_item <- tags$li(
+    class = "nav-item",
+    a(
+      class = "nav-link",
+      href = paste0("#", session$ns(tab$attribs$id)),
+      `data-toggle` = "pill",
+      `data-value` = tab$attribs$id,
+      role = "tab",
+      tab$attribs$id
+    )
+  )
+
+  # don't needed in production
+  if (handler_type == 1) {
+    tab <- force(as.character(tab))
+    navbar_menu_item <- force(as.character(navbar_menu_item))
+  }
+
+  message <- dropNulls(
+    list(
+      inputId = inputId,
+      # in production, only use processDeps(tab, session)
+      content = if (handler_type == 1) {
+        tab
+      } else if (handler_type == 2) {
+        processDeps(tab, session)
+      },
+      # in production, only use processDeps(navbar_menu_item, session)
+      link = if (handler_type == 1) {
+        navbar_menu_item
+      } else if (handler_type == 2) {
+        processDeps(navbar_menu_item, session)
+      },
+      target = target,
+      position = position,
+      select = select
+    )
+  )
+
+  # this is for the book purpose. In theory the type should
+  # remain fixed
+  type <- paste0("insert-tab-", handler_type)
+
+  session$sendCustomMessage(type, message)
+}
+
+
+
+#' Create an example for \link{insert_tabler_tab}.
+#'
+#' @param handler_type Only for the Book purpose. Allow to select a given
+#' custom message handler, to produce different behavior. You don't need
+#' this in production!
+#'
+#' @return A shiny app.
+#' @export
+#' @seealso \link{insert_tabler_tab}.
+#' @importFrom graphics hist
+#' @importFrom stats rnorm
+insert_tabler_tab_example <- function(handler_type) {
+  ui <- tabler_page(
+    tabler_navbar(
+      brand_url = "https://preview-dev.tabler.io",
+      brand_image = "https://preview-dev.tabler.io/static/logo.svg",
+      nav_menu = tabler_navbar_menu(
+        inputId = "tabmenu",
+        tabler_navbar_menu_item(
+          text = "Tab 1",
+          icon = NULL,
+          tabName = "tab1",
+          selected = TRUE
+        ),
+        tabler_navbar_menu_item(
+          text = "Tab 2",
+          icon = NULL,
+          tabName = "tab2"
+        )
+      ),
+      tabler_button("insert", "Insert Tab")
+    ),
+    tabler_body(
+      tabler_tab_items(
+        tabler_tab_item(
+          tabName = "tab1",
+          p("Hello World")
+        ),
+        tabler_tab_item(
+          tabName = "tab2",
+          p("Second Tab")
+        )
+      ),
+      footer = tabler_footer(
+        left = "Rstats, 2020",
+        right = a(href = "https://www.google.com")
+      )
+    )
+  )
+  server <- function(input, output, session) {
+
+    output$distPlot <- renderPlot({
+      hist(rnorm(input$obs))
+    })
+
+    observeEvent(input$insert, {
+      insert_tabler_tab(
+        handler_type = handler_type,
+        inputId = "tabmenu",
+        tab = tabler_tab_item(
+          tabName = "tab3",
+          sliderInput("obs", "Number of observations:",
+                      min = 0, max = 1000, value = 500
+          ),
+          plotOutput("distPlot")
+        ),
+        target = "tab2",
+        position = "before",
+        select = TRUE
+      )
+    })
+  }
+  shinyApp(ui, server)
 }
