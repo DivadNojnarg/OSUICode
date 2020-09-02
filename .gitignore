@@ -3,3 +3,4 @@
 .RData
 docs
 **/.DS_Store
+inst/bugged_app/**/rsconnect
