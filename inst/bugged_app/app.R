@@ -1,4 +1,5 @@
 library(shiny)
+
 ui <- fluidPage(
   tags$script(src = "notif.js"),
   actionButton(
