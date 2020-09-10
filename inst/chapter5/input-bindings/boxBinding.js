@@ -3,9 +3,6 @@ $.AdminLTE.boxWidget.animationSpeed = 10;
 
 let boxBinding = new Shiny.InputBinding();
 $.extend(boxBinding, {
-  //initialize: function(el) {
-  //  $(el).activateBox(); // box activation
-  //},
   find: function(scope) {
     return $(scope).find('.box');
   },
