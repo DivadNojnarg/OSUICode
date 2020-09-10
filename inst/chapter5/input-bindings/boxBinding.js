@@ -1,6 +1,3 @@
-// overwrite box animation speed. Putting 500 ms add unnecessary delay for Shiny.
-$.AdminLTE.boxWidget.animationSpeed = 10;
-
 let boxBinding = new Shiny.InputBinding();
 $.extend(boxBinding, {
   find: function(scope) {
@@ -36,3 +33,9 @@ $.extend(boxBinding, {
 });
 
 Shiny.inputBindings.register(boxBinding, 'box-input');
+
+
+$(function() {
+  // overwrite box animation speed. Putting 500 ms add unnecessary delay for Shiny.
+  $.AdminLTE.boxWidget.animationSpeed = 10;
+});
