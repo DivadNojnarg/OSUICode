@@ -14,7 +14,7 @@ update_tabler_switch(session, inputId, label = NULL, value = NULL)
 
 \item{label}{The label to set for the input object.}
 
-\item{value}{The value to set for the input object.}
+\item{value}{Initial value (\code{TRUE} or \code{FALSE}).}
 }
 \description{
 Update \link{tabler_switch} on the client
