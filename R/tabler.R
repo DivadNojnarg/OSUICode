@@ -777,6 +777,14 @@ update_tabler_progress <- function(id, value, session = shiny::getDefaultReactiv
 
 
 
+#' Run the update_tabler_progress example
+#'
+#' @return A shiny app
+#' @export
+update_tabler_progress_example <- function() {
+  shinyAppDir(system.file('tabler/update-progress-app', package='OSUICode'))
+}
+
 
 #' Create a Tabler toast
 #'
