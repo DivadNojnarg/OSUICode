@@ -1,5 +1,6 @@
 library(shiny)
 library(shinyWidgets)
+library(OSUICode)
 
 ui <- tabler_page(
   tabler_body(
