@@ -451,6 +451,16 @@ update_tabler_tab_item <- function(inputId, value, session = getDefaultReactiveD
 
 
 
+#' Run the update_tabler_tab_item example
+#'
+#' @return A shiny app
+#' @export
+update_tabler_navbar_example <- function() {
+  shinyAppDir(system.file('tabler/input-bindings', package='OSUICode'))
+}
+
+
+
 #' Create a row container for \link{tabler_card}
 #'
 #' @param ... Any Tabler element.
