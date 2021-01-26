@@ -1,0 +1,9 @@
+.supercard {
+          box-shadow: 0 4px 10px 0 rgb(0, 0, 0), 0 4px 20px 0 rgb(0, 0, 0);
+          width: 50%;
+          height: 200px;
+        }
+    
+        .supercard_body {
+          padding: 0.01em 16px;
+        }
