@@ -6,16 +6,16 @@ $(function() {
 
     if (message.position === 'after') {
       $divTag.insertAfter($('#' + message.target));
-      $liTag.insertAfter($('[href ="#' + message.target + '"]').parent());
+      $liTag.insertAfter($('[data-target ="#' + message.target + '"]').parent());
     } else if (message.position === 'before') {
       $divTag.insertBefore($('#' + message.target));
-      $liTag.insertBefore($('[href ="#' + message.target + '"]').parent());
+      $liTag.insertBefore($('[data-target ="#' + message.target + '"]').parent());
     }
 
     if (message.select) {
       // trigger a click on corresponding the new tab button.
       let newTabId = $divTag.attr('id');
-      $('#' + message.inputId + ' a[href="#' + newTabId +'"]').tab('show');
+      $('#' + message.inputId + ' a[data-target="#' + newTabId +'"]').tab('show');
     }
   });
 
@@ -28,10 +28,10 @@ $(function() {
 
     if (message.position === 'after') {
       $divTag.insertAfter($('#' + message.target));
-      $liTag.insertAfter($('[href ="#' + message.target + '"]').parent());
+      $liTag.insertAfter($('[data-target="#' + message.target + '"]').parent());
     } else if (message.position === 'before') {
       $divTag.insertBefore($('#' + message.target));
-      $liTag.insertBefore($('[href ="#' + message.target + '"]').parent());
+      $liTag.insertBefore($('[data-target="#' + message.target + '"]').parent());
     }
 
     // needed to render input/output in newly added tab. It takes the possible
@@ -43,7 +43,7 @@ $(function() {
     if (message.select) {
       // trigger a click on corresponding the new tab button.
       let newTabId = $divTag.attr('id');
-      $('#' + message.inputId + ' a[href="#' + newTabId +'"]').tab('show');
+      $('#' + message.inputId + ' a[data-target="#' + newTabId +'"]').tab('show');
     }
   });
 });

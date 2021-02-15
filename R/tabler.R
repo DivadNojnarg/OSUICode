@@ -1060,7 +1060,8 @@ insert_tabler_tab <- function(inputId, tab, target, position = c("before", "afte
     class = "nav-item",
     a(
       class = "nav-link",
-      href = paste0("#", session$ns(tab$attribs$id)),
+      href = "#",
+      `data-target` = paste0("#", session$ns(tab$attribs$id)),
       `data-toggle` = "pill",
       `data-value` = tab$attribs$id,
       role = "tab",
