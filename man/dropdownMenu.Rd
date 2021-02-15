@@ -15,7 +15,7 @@ dropdownMenu(
 )
 }
 \arguments{
-\item{...}{Slot for \link[bs4Dash]{dropdownMenuItem}.}
+\item{...}{Slot for dropdownMenuItem.}
 
 \item{show}{Whether to start with the dropdown open. FALSE by default.}
 

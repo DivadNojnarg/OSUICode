@@ -72,12 +72,12 @@ customTextInput <- function (inputId, label, value = "", width = NULL, placehold
 #'
 #' @return A Shiny App example
 #' @export
-customTextInputExample <- function(binding_step, value = "Data Summary") {
+customTextInputExample <- function(binding_step) {
   ui <- fluidPage(
     customTextInput(
       inputId = "caption",
       label = "Caption",
-      value = value,
+      value = "Data Summary",
       binding_step = binding_step
     ),
     textOutput("custom_text")
@@ -235,5 +235,50 @@ updateCustomTextInputExample <- function(binding_step) {
       updateCustomTextInput("caption", value = "new text")
     })
   }
+  shinyApp(ui, server)
+}
+
+
+
+
+#' Example showing how to edit an input binding
+#'
+#' @return A shiny app example
+#' @export
+editBindingExample <- function() {
+  ui <- fluidPage(
+    actionButton("button1", icon("plus")),
+    actionButton("button2", uiOutput("val")),
+    actionButton("reset", icon("undo")),
+    plotOutput("plot")
+  ) %>% tagList(
+    htmlDependency(
+      name = "edit-binding",
+      version = "1.0.0",
+      src = c(file = system.file("chapter5/input-bindings", package = "OSUICode")),
+      script = "editBinding.js"
+    )
+  )
+
+  server <- function(input, output) {
+    output$val <- renderUI({
+      paste("Value: ", input$button2)
+    })
+
+    output$plot <- renderPlot({
+      validate(need(input$button2 >= 10, message = "Only visible after 10 clicks on the second button"))
+      hist(rnorm(100))
+    })
+
+    observeEvent(input$button2, {
+      if (input$button2 == 0) {
+        showNotification(
+          "Button successfuly reset",
+          type = "warning"
+        )
+      }
+    })
+  }
+
   shinyApp(ui, server)
 }

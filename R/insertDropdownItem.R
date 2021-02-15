@@ -30,7 +30,7 @@ insertDropdownItem <- function(item, session = shiny::getDefaultReactiveDomain()
 #'
 #' Build an adminLTE3 dashboard dropdown menu
 #'
-#' @param ... Slot for \link[bs4Dash]{dropdownMenuItem}.
+#' @param ... Slot for dropdownMenuItem.
 #' @param show Whether to start with the dropdown open. FALSE by default.
 #' @param status Dropdown menu status. "primary", "success", "warning", "danger" or "info".
 #' @param labelText Dropdown label text.
