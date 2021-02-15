@@ -4,7 +4,7 @@
 \alias{customTextInputExample}
 \title{Wrapper for Shiny App example}
 \usage{
-customTextInputExample(binding_step)
+customTextInputExample(binding_step, value = "Data Summary")
 }
 \arguments{
 \item{binding_step}{Input binding step. See \link{customTextInput}.}

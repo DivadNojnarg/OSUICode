@@ -32,6 +32,14 @@
 #' }
 customTextInput <- function (inputId, label, value = "", width = NULL, placeholder = NULL, binding_step) {
 
+  type <- if (inherits(value, "Date")) {
+    "date"
+  } else if (inherits(value, "numeric")) {
+    "number"
+  } else {
+    NULL
+  }
+
   # this external wrapper ensure to control the input width
   div(
     class = "form-group shiny-input-container",
@@ -49,7 +57,8 @@ customTextInput <- function (inputId, label, value = "", width = NULL, placehold
         type = "text",
         class = "form-control input-text",
         value = value,
-        placeholder = placeholder
+        placeholder = placeholder,
+        `data-data-type` = type
       )
     )
   )
@@ -63,21 +72,54 @@ customTextInput <- function (inputId, label, value = "", width = NULL, placehold
 #'
 #' @return A Shiny App example
 #' @export
-customTextInputExample <- function(binding_step) {
+customTextInputExample <- function(binding_step, value = "Data Summary") {
   ui <- fluidPage(
     customTextInput(
       inputId = "caption",
       label = "Caption",
-      value = "Data Summary",
+      value = value,
       binding_step = binding_step
     ),
     textOutput("custom_text")
   )
   server <- function(input, output) {
-    output$custom_text <- renderText(input$caption)
+    output$custom_text <- renderPrint(input$caption)
   }
   shinyApp(ui, server)
 }
+
+
+
+
+#' Wrapper for Shiny App example with input handler
+#'
+#' @param binding_step Input binding step. See \link{customTextInput}.
+#' @param value Default value. Dates are handled with a custom input handler.
+#'
+#' @return A Shiny App example
+#' @export
+customTextInputHandlerExample <- function(binding_step, value = "Data Summary") {
+  ui <- fluidPage(
+    customTextInput(
+      inputId = "caption",
+      label = "Caption",
+      value = value,
+      binding_step = binding_step
+    ),
+    textOutput("custom_text")
+  )
+  server <- function(input, output) {
+    output$custom_text <- renderPrint({
+      list(
+        value = input$caption,
+        class = class(input$caption)
+      )
+    })
+  }
+  shinyApp(ui, server)
+}
+
+
 
 
 
