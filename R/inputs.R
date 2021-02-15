@@ -80,6 +80,34 @@ customTextInputExample <- function(binding_step) {
 }
 
 
+
+#' Wrapper for Shiny App example
+#'
+#' @return A Shiny App example
+#' @export
+customTextInputExampleBis <- function() {
+  ui <- fluidPage(
+    customTextInput(
+      inputId = "mytextInput",
+      label = "Caption",
+      value = "Data Summary",
+      binding_step = "1_bis"
+    ),
+    customTextInput(
+      inputId = "myothertextInput",
+      label = "Caption",
+      value = "Data Summary",
+      binding_step = "1_bis"
+    ),
+    textOutput("custom_text")
+  )
+  server <- function(input, output) {
+    output$custom_text <- renderText(input$caption)
+  }
+  shinyApp(ui, server)
+}
+
+
 #' Add necessary dependencies for the \link{customTextInput}
 #'
 #' The step provides a way to follow the Chapter 1 book section.
