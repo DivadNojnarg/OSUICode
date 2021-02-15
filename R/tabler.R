@@ -330,9 +330,10 @@ tabler_navbar_menu_item <- function(text, tabName, icon = NULL, selected = FALSE
     class = "nav-item",
     a(
       class = item_cl,
-      href = paste0("#", tabName),
       `data-toggle` = "pill", # see https://getbootstrap.com/docs/4.0/components/navs/
+      `data-target` = paste0("#", tabName),
       `data-value` = tabName,
+      href = "#",
       role = "tab",
       span(class = "nav-link-icon d-md-none d-lg-inline-block", icon),
       span(class = "nav-link-title", text)
