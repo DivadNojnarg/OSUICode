@@ -3,8 +3,6 @@
 #' @return A shiny app
 #' @export
 runPokemonExample <- function() {
-  library(shiny)
-
   ui <- fluidPage(
     tags$button(id = "button", "Go!", class = "btn-success")
   ) %>% tagList(
