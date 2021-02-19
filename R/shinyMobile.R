@@ -151,6 +151,9 @@ f7_gauge <- function(id, value, options = NULL) {
 #' @param options List of options.
 #' @param session Shiny session object.
 #' @export
+#' if (interactive()) {
+#'  shiny::shinyAppDir(system.file("shinyMobile/notification", package = "OSUICode"))
+#' }
 f7_notif <- function(id = NULL, text, options = NULL, session = shiny::getDefaultReactiveDomain()) {
 
   if (!is.null(options$icon)) options$icon <- as.character(options$icon)
