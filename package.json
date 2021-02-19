@@ -1,0 +1,19 @@
+{
+  "name": "OSUICode",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "man": "man"
+  },
+  "scripts": {
+    "build-dev": "esbuild srcjs/main.js --bundle --format=esm --outfile=inst/OSUICode-0.0.0.9000/js/OSUICode.js",
+    "build-prod": "esbuild srcjs/main.js --bundle --minify --sourcemap --format=esm --outfile=inst/OSUICode-0.0.0.9000/js/OSUICode.min.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT + file LICENSE",
+  "devDependencies": {
+    "esbuild": "^0.8.46"
+  }
+}

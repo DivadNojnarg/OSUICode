@@ -18,7 +18,8 @@ Imports:
     magrittr,
     htmltools,
     shiny,
-    stringr
+    stringr,
+    jsonlite
 Suggests: 
     testthat,
     shinyWidgets
