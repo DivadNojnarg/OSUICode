@@ -24,6 +24,6 @@ Mobile page wrapper
 }
 \examples{
 if (interactive()) {
- shiny::shinyAppDir(system.file("shinyMobile-pwa", package = "OSUICode"))
+ shiny::shinyAppDir(system.file("shinyMobile/simple", package = "OSUICode"))
 }
 }

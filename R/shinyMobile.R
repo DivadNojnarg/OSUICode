@@ -9,7 +9,7 @@
 #' @export
 #' @examples
 #' if (interactive()) {
-#'  shiny::shinyAppDir(system.file("shinyMobile-pwa", package = "OSUICode"))
+#'  shiny::shinyAppDir(system.file("shinyMobile/simple", package = "OSUICode"))
 #' }
 f7_page <- function(..., navbar, toolbar, title = NULL, options = NULL, allowPWA = TRUE) {
 
@@ -117,7 +117,7 @@ f7_toolbar <- function(...) {
 #' @export
 #' @examples
 #' if (interactive()) {
-#'  shiny::shinyAppDir(system.file("shinyMobile-pwa", package = "OSUICode"))
+#'  shiny::shinyAppDir(system.file("shinyMobile/pwa", package = "OSUICode"))
 #' }
 f7_gauge <- function(id, value, options = NULL) {
 
@@ -171,7 +171,7 @@ f7_notif <- function(id = NULL, text, options = NULL, session = shiny::getDefaul
 #' @export
 #' @examples
 #' if (interactive()) {
-#'  shiny::shinyAppDir(system.file("shinyMobile-pwa", package = "OSUICode"))
+#'  shiny::shinyAppDir(system.file("shinyMobile/pwa", package = "OSUICode"))
 #' }
 update_f7_instance <- function(id, options, session = shiny::getDefaultReactiveDomain()) {
 

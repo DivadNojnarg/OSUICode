@@ -18,6 +18,6 @@ Update any UI widget on the server
 }
 \examples{
 if (interactive()) {
- shiny::shinyAppDir(system.file("shinyMobile-pwa", package = "OSUICode"))
+ shiny::shinyAppDir(system.file("shinyMobile/pwa", package = "OSUICode"))
 }
 }

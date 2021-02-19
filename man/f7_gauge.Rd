@@ -18,6 +18,6 @@ Gauge widget
 }
 \examples{
 if (interactive()) {
- shiny::shinyAppDir(system.file("shinyMobile-pwa", package = "OSUICode"))
+ shiny::shinyAppDir(system.file("shinyMobile/pwa", package = "OSUICode"))
 }
 }
