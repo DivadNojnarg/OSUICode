@@ -19,7 +19,13 @@ Imports:
     htmltools,
     shiny,
     stringr,
-    jsonlite
+    jsonlite,
+    purrr,
+    tibble,
+    bs4Dash,
+    shinydashboard,
+    shinydashboardPlus
 Suggests: 
     testthat,
-    shinyWidgets
+    shinyWidgets,
+    fresh
