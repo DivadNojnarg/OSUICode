@@ -75,6 +75,9 @@ customize_bs4Dash <- function(theme) {
         bs4Dash::tabItems(
           bs4Dash::tabItem(
             tabName = "tab1",
+            tags$head(
+              tags$style(".brand-link { color: #fff !important; }")
+            ),
             tags$h2("UI components"),
             tags$h4("bs4ValueBox"),
             fluidRow(
