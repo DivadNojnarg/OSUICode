@@ -23,9 +23,9 @@ if (interactive()) {
 
  dark_theme <- create_theme(
   bs4dash_vars(
-    navbar_dark_color = "#bec5cb",
-    navbar_dark_active_color = "#FFF",
-    navbar_dark_hover_color = "#FFF"
+    navbar_light_color = "#bec5cb",
+    navbar_light_active_color = "#FFF",
+    navbar_light_hover_color = "#FFF"
   ),
   bs4dash_yiq(contrasted_threshold = 10, text_dark = "#FFF", text_light = "#272c30"),
   bs4dash_layout(main_bg = "#353c42"),

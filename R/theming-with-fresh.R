@@ -11,9 +11,9 @@
 #'
 #'  dark_theme <- create_theme(
 #'   bs4dash_vars(
-#'     navbar_dark_color = "#bec5cb",
-#'     navbar_dark_active_color = "#FFF",
-#'     navbar_dark_hover_color = "#FFF"
+#'     navbar_light_color = "#bec5cb",
+#'     navbar_light_active_color = "#FFF",
+#'     navbar_light_hover_color = "#FFF"
 #'   ),
 #'   bs4dash_yiq(contrasted_threshold = 10, text_dark = "#FFF", text_light = "#272c30"),
 #'   bs4dash_layout(main_bg = "#353c42"),
@@ -30,18 +30,19 @@
 #' }
 #' @export
 customize_bs4Dash <- function(theme) {
+  thematic::thematic_shiny()
   shinyApp(
     ui = bs4Dash::dashboardPage(
       title = "Theming demo",
       dark = FALSE,
       freshTheme = theme,
-      header = bs4Dash::dashboardHeader(title = "Theming bs4Dash", skin = "dark"),
+      header = bs4Dash::dashboardHeader(title = "Theming bs4Dash"),
       controlbar = bs4Dash::dashboardControlbar(
         skin = "dark",
         "This is the control bar"
       ),
       sidebar = bs4Dash::dashboardSidebar(
-        skin = "dark",
+        skin = "light",
         bs4Dash::sidebarMenu(
           bs4Dash::sidebarHeader("Menu:"),
           bs4Dash::menuItem(
@@ -187,7 +188,16 @@ customize_bs4Dash <- function(theme) {
           ),
           bs4Dash::tabItem(
             tabName = "tab2",
-            "Nothing to see here"
+            bs4Dash::box(
+              sliderInput(
+                "obs",
+                "Number of observations:",
+                min = 0,
+                max = 1000,
+                value = 500
+              ),
+              plotOutput("distPlot")
+            )
           )
         )
       )
