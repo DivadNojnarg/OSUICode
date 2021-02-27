@@ -25,7 +25,9 @@ Imports:
     bs4Dash,
     shinydashboard,
     shinydashboardPlus,
-    thematic
+    thematic,
+    httpuv,
+    websocket
 Suggests: 
     testthat,
     shinyWidgets,
