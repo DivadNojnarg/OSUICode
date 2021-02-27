@@ -61,3 +61,96 @@ websocket_client <- function(host = "127.0.0.1", port = 8080) {
   })
   ws
 }
+
+
+#' Create demo httpuv app
+#'
+#' This app is composed of an HTTP response containing a
+#' an HTML page with a range slider and a client websocket connection.
+#' The app has also a server websocket handler.
+#' At the end of the day, don't forget to stop the app!
+#'
+#' @param delay To simulate computationally intense task.
+#' @return An httpuv powered app
+#' @export
+#'
+#' @examples
+#' if (interactive()) {
+#'  library(OSUICode)
+#'  my_app <- httpuv_app()
+#'  my_app$stop()
+#' }
+httpuv_app <- function(delay = NULL) {
+  s <- httpuv::startServer(
+    "127.0.0.1",
+    8080,
+    list(
+      call = function(req) {
+        list(
+          status = 200L,
+          headers = list(
+            'Content-Type' = 'text/html'
+          ),
+          body = '
+            <!DOCTYPE HTML>
+            <html lang="en">
+              <head>
+                <script language="javascript">
+                  // Initialize client socket connection
+                  var mySocket = new WebSocket("ws://127.0.0.1:8080");
+                  mySocket.onopen = function (event) {
+                    // do stuff
+                  };
+                  mySocket.onmessage = function (event) {
+                    // do stuff
+                  };
+                  document.addEventListener("DOMContentLoaded", function(event) {
+                    var sliderWidget = document.getElementById("slider");
+                    var label = document.getElementById("sliderLabel");
+                    label.innerHTML = "Value:" + slider.value; // init
+                    // on change
+                    sliderWidget.oninput = function() {
+                      var val = parseInt(this.value);
+                      mySocket.send(
+                        JSON.stringify({
+                          value: val,
+                          message: "New value for your server!"
+                        })
+                      );
+                      label.innerHTML = "Value:" + val;
+                    };
+                  });
+                </script>
+                <title>Websocket Example</title>
+              </head>
+              <body>
+                <div>
+                  <input type="range" id="slider" name="volume" min="0" max="100">
+                  <label for="slider" id ="sliderLabel"></label>
+                </div>
+              </body>
+            </html>
+          '
+        )
+      },
+      onWSOpen = function(ws) {
+        # The ws object is a WebSocket object
+        cat("New connection opened.\n")
+        # Capture client messages
+        ws$onMessage(function(binary, message) {
+          message <- jsonlite::fromJSON(message)
+          print(message)
+          cat("Number of bins:", message$value, "\n")
+          hist(rnorm(message$value))
+          if (!is.null(delay)) Sys.sleep(delay)
+          ws$send("Thanks client! I updated the plot.")
+        })
+        ws$onClose(function() {
+          cat("Server connection closed.\n")
+        })
+      }
+    )
+  )
+  s
+}
+
