@@ -11,16 +11,18 @@
 #' @export
 #' @rdname websocket
 #' @examples
-#' library(OSUICode)
-#' server <- websocket_server()
-#' client_1 <- websocket_client()
-#' client_2 <- websocket_client()
-#' client_1$send("Hello from client 1")
-#' client_2$send("Hello from client 2")
-#' client_1$close()
-#' client_2$send("Only client 2 is here")
-#' Sys.sleep(1)
-#' server$stop()
+#' if (interactive()) {
+#'  library(OSUICode)
+#'  server <- websocket_server()
+#'  client_1 <- websocket_client()
+#'  client_2 <- websocket_client()
+#'  client_1$send("Hello from client 1")
+#'  client_2$send("Hello from client 2")
+#'  client_1$close()
+#'  client_2$send("Only client 2 is here")
+#'  Sys.sleep(1)
+#'  server$stop()
+#' }
 websocket_server <- function(host = "127.0.0.1", port = 8080) {
   # set the server
   httpuv::startServer(
