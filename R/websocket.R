@@ -96,15 +96,19 @@ httpuv_app <- function(delay = NULL) {
             <html lang="en">
               <head>
                 <script language="javascript">
-                  // Initialize client socket connection
-                  var mySocket = new WebSocket("ws://127.0.0.1:8080");
-                  mySocket.onopen = function (event) {
-                    // do stuff
-                  };
-                  mySocket.onmessage = function (event) {
-                    // do stuff
-                  };
                   document.addEventListener("DOMContentLoaded", function(event) {
+                    var gauge = document.getElementById("mygauge");
+                    // Initialize client socket connection
+                    var mySocket = new WebSocket("ws://127.0.0.1:8080");
+                    mySocket.onopen = function (event) {
+                      // do stuff
+                    };
+                    // update the gauge value on server message
+                    mySocket.onmessage = function (event) {
+                      var data = JSON.parse(event.data);
+                      gauge.value = data.val;
+                    };
+
                     var sliderWidget = document.getElementById("slider");
                     var label = document.getElementById("sliderLabel");
                     label.innerHTML = "Value:" + slider.value; // init
@@ -114,7 +118,7 @@ httpuv_app <- function(delay = NULL) {
                       mySocket.send(
                         JSON.stringify({
                           value: val,
-                          message: "New value for your server!"
+                          message: "New value for you server!"
                         })
                       );
                       label.innerHTML = "Value:" + val;
@@ -128,6 +132,9 @@ httpuv_app <- function(delay = NULL) {
                   <input type="range" id="slider" name="volume" min="0" max="100">
                   <label for="slider" id ="sliderLabel"></label>
                 </div>
+                <br/>
+                <label for="mygauge">Gauge:</label>
+                <meter id="mygauge" min="0" max="100" low="33" high="66" optimum="80" value="50"></meter>
               </body>
             </html>
           '
@@ -138,12 +145,25 @@ httpuv_app <- function(delay = NULL) {
         cat("New connection opened.\n")
         # Capture client messages
         ws$onMessage(function(binary, message) {
-          message <- jsonlite::fromJSON(message)
-          print(message)
-          cat("Number of bins:", message$value, "\n")
-          hist(rnorm(message$value))
+
+          # create plot
+          input_message <- jsonlite::fromJSON(message)
+          print(input_message)
+          cat("Number of bins:", input_message$value, "\n")
+          hist(rnorm(input_message$value))
           if (!is.null(delay)) Sys.sleep(delay)
-          ws$send("Thanks client! I updated the plot.")
+
+          # update gauge widget
+          output_message <- jsonlite::toJSON(
+            list(
+              val = sample(0:100, 1),
+              message = "Thanks client! I updated the plot..."
+            ),
+            pretty = TRUE,
+            auto_unbox = TRUE
+          )
+          ws$send(output_message)
+          cat(output_message)
         })
         ws$onClose(function() {
           cat("Server connection closed.\n")
