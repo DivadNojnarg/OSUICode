@@ -6,7 +6,7 @@
 \usage{
 box2(
   ...,
-  inputId = NULL,
+  id = NULL,
   title = NULL,
   footer = NULL,
   background = NULL,
@@ -19,7 +19,7 @@ box2(
 \arguments{
 \item{...}{Contents of the box.}
 
-\item{inputId}{Box unique id. \link{updateBox2} target.}
+\item{id}{Box unique id. \link{updateBox2} target.}
 
 \item{title}{Optional title.}
 

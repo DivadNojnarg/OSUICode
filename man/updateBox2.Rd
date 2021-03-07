@@ -4,10 +4,10 @@
 \alias{updateBox2}
 \title{Collapse a \link{box2} tag.}
 \usage{
-updateBox2(inputId, session = getDefaultReactiveDomain())
+updateBox2(id, session = getDefaultReactiveDomain())
 }
 \arguments{
-\item{inputId}{Box to toggle.}
+\item{id}{Box to toggle.}
 
 \item{session}{Shiny session object.}
 }
@@ -30,7 +30,7 @@ if (interactive()) {
   box2(
    title = textOutput("box_state"),
    "Box body",
-   inputId = "mybox",
+   id = "mybox",
    collapsible = TRUE,
    plotOutput("plot")
   ),

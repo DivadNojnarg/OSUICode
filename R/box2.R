@@ -10,10 +10,10 @@ box2Deps <- function() {
 
 #' Create a custom shinydashboard box with interactive capabilities
 #'
-#' @param inputId Box unique id. \link{updateBox2} target.
+#' @param id Box unique id. \link{updateBox2} target.
 #' @inheritParams shinydashboard::box
 #' @export
-box2 <- function(..., inputId = NULL, title = NULL, footer = NULL,
+box2 <- function(..., id = NULL, title = NULL, footer = NULL,
                  background = NULL, width = 6, height = NULL,
                  collapsible = FALSE, collapsed = FALSE) {
   boxClass <- "box"
@@ -59,7 +59,7 @@ box2 <- function(..., inputId = NULL, title = NULL, footer = NULL,
     div(
       class = if (!is.null(width)) paste0("col-sm-", width),
       div(
-        id = inputId,
+        id = id,
         class = boxClass,
         style = if (!is.null(style)) {
           style
@@ -75,7 +75,7 @@ box2 <- function(..., inputId = NULL, title = NULL, footer = NULL,
 
 #' Collapse a \link{box2} tag.
 #'
-#' @param inputId Box to toggle.
+#' @param id Box to toggle.
 #' @param session Shiny session object.
 #' @export
 #'
@@ -95,7 +95,7 @@ box2 <- function(..., inputId = NULL, title = NULL, footer = NULL,
 #'   box2(
 #'    title = textOutput("box_state"),
 #'    "Box body",
-#'    inputId = "mybox",
+#'    id = "mybox",
 #'    collapsible = TRUE,
 #'    plotOutput("plot")
 #'   ),
@@ -122,6 +122,6 @@ box2 <- function(..., inputId = NULL, title = NULL, footer = NULL,
 #'  shinyApp(ui, server)
 #'
 #' }
-updateBox2 <- function(inputId, session = getDefaultReactiveDomain()) {
-  session$sendInputMessage(inputId, message = NULL)
+updateBox2 <- function(id, session = getDefaultReactiveDomain()) {
+  session$sendInputMessage(id, message = NULL)
 }
