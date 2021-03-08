@@ -9,7 +9,7 @@ runPokemonExample <- function() {
     htmlDependency(
       name = "pokemon",
       version = "1.0.0",
-      src = system.file("inst/pokemons", package = "OSUICode"),
+      src = system.file("inst/pokemon-1.0.0", package = "OSUICode"),
       script = "pokemons-handlers.js"
     )
   )
