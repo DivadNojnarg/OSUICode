@@ -1,10 +1,12 @@
-#' Register custom handler for text date
+#' Register custom handler for text date and Add resources for tabler
 #'
 #' @importFrom shiny registerInputHandler
 #'
 #' @noRd
 #'
 .onLoad <- function(...) {
+  addResourcePath("tabler", system.file("tabler", package = "OSUICode"))
+
   registerInputHandler("OSUICode.textDate", function(data, ...) {
     if (is.null(data)) {
       NULL
