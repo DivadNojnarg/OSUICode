@@ -2,7 +2,7 @@ box2Deps <- function() {
   htmlDependency(
     name = "boxBinding",
     version = "1.0.0",
-    src = c(file = system.file("chapter5/input-bindings", package = "OSUICode")),
+    src = c(file = system.file("input-system/input-bindings", package = "OSUICode")),
     script = "boxBinding.js"
   )
 }

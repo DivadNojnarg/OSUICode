@@ -166,7 +166,7 @@ customTextInputDeps <- function(binding_step) {
   htmlDependency(
     name = "customTextBindings",
     version = "1.0.0",
-    src = c(file = system.file("chapter5/input-bindings", package = "OSUICode")),
+    src = c(file = system.file("input-system/input-bindings", package = "OSUICode")),
     script = paste0("customTextInputBinding_", binding_step, ".js")
   )
 }
@@ -255,7 +255,7 @@ editBindingExample <- function() {
     htmlDependency(
       name = "edit-binding",
       version = "1.0.0",
-      src = c(file = system.file("chapter5/input-bindings", package = "OSUICode")),
+      src = c(file = system.file("input-system/input-bindings", package = "OSUICode")),
       script = "editBinding.js"
     )
   )
