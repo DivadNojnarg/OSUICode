@@ -231,7 +231,7 @@ tabler_footer <- function(left = NULL, right = NULL) {
 #'  shinyApp(ui, server)
 #'
 #'  # example with custom JS code to activate tabs
-#'  shinyAppDir(system.file("chapter12/tabler_tabs", package = "OSUICode"))
+#'  shinyAppDir(system.file("tabler/tabler_tabs", package = "OSUICode"))
 #' }
 tabler_navbar <- function(..., brand_url = NULL, brand_image = NULL, nav_menu, nav_right = NULL) {
 

@@ -26,12 +26,6 @@ insertMessageItem <- function(item, session = shiny::getDefaultReactiveDomain())
 }
 
 
-#' Create a Boostrap 4 dashboard dropdown menu
-#'
-#' Build an adminLTE3 dashboard dropdown menu
-#'
-#' @inheritParams bs4Dash::dropdownMenu
-#' @export
 dropdownMenu <- function(..., type = c("messages", "notifications", "tasks"),
                          badgeStatus = "primary", icon = NULL, headerText = NULL,
                          .list = NULL, href = NULL) {

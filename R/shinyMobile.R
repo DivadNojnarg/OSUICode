@@ -151,6 +151,7 @@ f7_gauge <- function(id, value, options = NULL) {
 #' @param options List of options.
 #' @param session Shiny session object.
 #' @export
+#' @examples
 #' if (interactive()) {
 #'  shiny::shinyAppDir(system.file("shinyMobile/notification", package = "OSUICode"))
 #' }

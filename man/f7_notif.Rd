@@ -23,3 +23,8 @@ f7_notif(
 \description{
 Notification widget
 }
+\examples{
+if (interactive()) {
+ shiny::shinyAppDir(system.file("shinyMobile/notification", package = "OSUICode"))
+}
+}

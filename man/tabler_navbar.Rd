@@ -73,6 +73,6 @@ if (interactive()) {
  shinyApp(ui, server)
 
  # example with custom JS code to activate tabs
- shinyAppDir(system.file("chapter12/tabler_tabs", package = "OSUICode"))
+ shinyAppDir(system.file("tabler/tabler_tabs", package = "OSUICode"))
 }
 }
