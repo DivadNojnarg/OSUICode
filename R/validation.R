@@ -254,13 +254,17 @@ tagMatches <- function(item, ..., id = NULL, name = NULL, class = NULL) {
 #' }
 #' @importFrom stringr str_extract_all str_c
 validate_tabName <- function(tabName) {
-  temp <- grepl("[[:punct:]]", tabName)
-  wrong_selector <- stringr::str_extract_all(tabName, "[[:punct:]]")[[1]] %>%
-    stringr::str_c(collapse = "")
-  if (temp) stop(paste("Please do not use punctuation characters like",  wrong_selector,"in tabNames. This might cause JavaScript issues."))
+  forbidden <- "(?!_)[[:punct:]]"
+  wrong_selector <- grepl(forbidden, tabName, perl = TRUE)
+  if (wrong_selector) {
+    stop(
+      paste(
+        "Please do not use punctuation characters in tabNames.
+        This might cause JavaScript issues."
+      )
+    )
+  }
 }
-# validate_tabName("test%") # fails
-validate_tabName("plop")
 
 
 
