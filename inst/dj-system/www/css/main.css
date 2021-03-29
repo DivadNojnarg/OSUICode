@@ -48,16 +48,14 @@ main {
 /* Crop image circular: https://crop-circle.imageonline.co/#circlecropresult */
 .jog {
   position: absolute;
-  width: 207px;
-  height: 207px;
-  background-image: url(../img/cdj-2000nxs2-jog.png);
+  width: 52px;
+  height: 52px;
+  background-image: url(../img/cdj-2000nxs2-jog-crown.png);
   background-repeat: no-repeat;
-  left: 95px;
-  top: 230px;
+  left: 175px;
+  top: 310px;
   animation: spin infinite linear;
   animation-duration: 2s;
-  transform-origin: center center;
-  transform-style: preserve-3d;
 }
 
 
@@ -83,7 +81,7 @@ main {
 #my_ws {
   position: absolute;
   left: 110px;
-  top: 75px;
+  top: 35px;
 }
 
 .screen {

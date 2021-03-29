@@ -19,7 +19,7 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   output$my_ws <- renderWavesurfer({
-    wavesurfer(audio = "music/track1.mp3") %>%
+    wavesurfer(audio = "music/track1.mp3", barHeight = 0.5) %>%
       ws_set_wave_color('#129cf5')
   })
 
