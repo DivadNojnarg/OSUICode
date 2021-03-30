@@ -1,6 +1,11 @@
 $(function() {
   $(".play").click(function() {
     updateJog();
+    if ($(".jog").hasClass("paused")) {
+      $(this).addClass("blink-green");
+    } else {
+      $(this).removeClass("blink-green");
+    }
   });
 
   $("body").keyup(function(e) {
