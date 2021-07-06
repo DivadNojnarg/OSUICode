@@ -5,7 +5,7 @@ library(OSUICode)
 shinyApp(
   ui = dashboardPage(
     header = dashboardHeader(
-      rightUi = OSUICode::dropdownMenu(
+      rightUi = OSUICode:::dropdownMenu(
         badgeStatus = "danger",
         type = "messages"
       )
