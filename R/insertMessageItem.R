@@ -14,6 +14,7 @@ dropdownDeps <- function() {
 #'
 #' @param item Item to insert.
 #' @param session Shiny session object.
+#' @rdname insertMessageItem
 #' @export
 #'
 #' @examples
@@ -26,6 +27,8 @@ insertMessageItem <- function(item, session = shiny::getDefaultReactiveDomain())
 }
 
 
+#' @rdname insertMessageItem
+#' @export
 dropdownMenu <- function(..., type = c("messages", "notifications", "tasks"),
                          badgeStatus = "primary", icon = NULL, headerText = NULL,
                          .list = NULL, href = NULL) {
