@@ -3,14 +3,23 @@
   "short_name": "My App",
   "description": "What it does!",
   "lang": "en-US",
-  "start_url": "/",
-  "display": "minimal-ui",
+  "start_url": "<APP_URL>",
+  "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
     {
       "src": "icons/icon-144.png",
       "sizes": "144x144"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Open toast",
+      "short_name": "Shortcut",
+      "description": "Do something",
+      "url": "<APP_URL/PATH/...>",
+      "icons": [{ "src": "icons/shortcut.png", "sizes": "192x192" }]
     }
   ]
 }
