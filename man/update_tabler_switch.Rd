@@ -8,13 +8,13 @@ update_tabler_switch(session, inputId, label = NULL, value = NULL)
 }
 \arguments{
 \item{session}{The \code{session} object passed to function given to
-\code{shinyServer}.}
+\code{shinyServer}. Default is \code{getDefaultReactiveDomain()}.}
 
 \item{inputId}{The id of the input object.}
 
 \item{label}{The label to set for the input object.}
 
-\item{value}{The value to set for the input object.}
+\item{value}{Initial value (\code{TRUE} or \code{FALSE}).}
 }
 \description{
 Update \link{tabler_switch} on the client

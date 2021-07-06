@@ -2,9 +2,20 @@
 % Please edit documentation in R/insertMessageItem.R
 \name{insertMessageItem}
 \alias{insertMessageItem}
+\alias{dropdownMenu}
 \title{Insert Bootstrap 4 dropdown menu item}
 \usage{
 insertMessageItem(item, session = shiny::getDefaultReactiveDomain())
+
+dropdownMenu(
+  ...,
+  type = c("messages", "notifications", "tasks"),
+  badgeStatus = "primary",
+  icon = NULL,
+  headerText = NULL,
+  .list = NULL,
+  href = NULL
+)
 }
 \arguments{
 \item{item}{Item to insert.}

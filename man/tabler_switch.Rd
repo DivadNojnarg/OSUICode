@@ -14,7 +14,7 @@ tabler_switch(inputId, label, value = FALSE, width = NULL)
 \item{value}{Initial value (\code{TRUE} or \code{FALSE}).}
 
 \item{width}{The width of the input, e.g. \code{'400px'}, or \code{'100\%'};
-see \code{\link[shiny:validateCssUnit]{validateCssUnit()}}.}
+see \code{\link[shiny:reexports]{validateCssUnit()}}.}
 }
 \value{
 A toggle input tag.
