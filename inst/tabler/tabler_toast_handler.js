@@ -5,7 +5,7 @@ $(function() {
     .toast('show');
 
     // add custom Shiny input to listen to the toast state
-    $(`#${message.id}`).on('hidden.bs.toast', function() {
+    $(`#${message.id}`).once('hidden.bs.toast', function() {
       Shiny.setInputValue(message.id, true, {priority: 'event'});
     });
   });
