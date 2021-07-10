@@ -20,7 +20,9 @@ ui <- f7_page(
   options = list(
     theme = "ios",
     version = "1.0.0",
-    taphold = TRUE,
+    touch = list(
+      tapHold = TRUE
+    ),
     color = "#42f5a1",
     filled = TRUE,
     dark = TRUE
