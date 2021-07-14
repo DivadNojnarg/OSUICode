@@ -11,7 +11,7 @@ tablers_deps <- htmlDependency(
 tabler_custom_js <- htmlDependency(
   name = "tabler-bindings",
   version = "1.0.7",
-  src = c(href = "tabler"),
+  src = "tabler",
   package = "OSUICode",
   script = c(
     "input-bindings/navbarMenuBinding.js",
