@@ -26,7 +26,8 @@ insertMessageItem <- function(item, session = shiny::getDefaultReactiveDomain())
   session$sendCustomMessage("add-message-item", message = as.character(item))
 }
 
-
+#' @inheritParams shinydashboard::dropdownMenu
+#' @param href Link target.
 #' @rdname insertMessageItem
 #' @export
 dropdownMenu <- function(..., type = c("messages", "notifications", "tasks"),
