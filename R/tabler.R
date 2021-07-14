@@ -484,6 +484,7 @@ tabler_row <- function(...) {
 #' \url{https://preview-dev.tabler.io/docs/colors.html}.
 #' @param width Card width. Numeric between 1 and 12 according to the
 #' Bootstrap 4 grid system.
+#' @param stacked Apply a stacked effect to the card.
 #' @param padding Card padding. Leave NULL or "sm", "md" and "lg".
 #'
 #' @return A card tag.
@@ -508,10 +509,16 @@ tabler_row <- function(...) {
 #'  server <- function(input, output) {}
 #'  shinyApp(ui, server)
 #' }
-tabler_card <- function(..., title = NULL, status = NULL, width = 6, padding = NULL) {
+tabler_card <- function(..., title = NULL, status = NULL, width = 6,
+                        stacked = FALSE, padding = NULL) {
+
+  validate_status(status)
+  validate_width(width)
+  validate_padding(padding)
 
   card_cl <- paste0(
     "card",
+    if (stacked) " card-stacked",
     if (!is.null(padding)) paste0(" card-", padding)
   )
 

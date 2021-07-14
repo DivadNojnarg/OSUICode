@@ -4,7 +4,14 @@
 \alias{tabler_card}
 \title{Create a Tabler card element}
 \usage{
-tabler_card(..., title = NULL, status = NULL, width = 6, padding = NULL)
+tabler_card(
+  ...,
+  title = NULL,
+  status = NULL,
+  width = 6,
+  stacked = FALSE,
+  padding = NULL
+)
 }
 \arguments{
 \item{...}{Card content.}
@@ -16,6 +23,8 @@ tabler_card(..., title = NULL, status = NULL, width = 6, padding = NULL)
 
 \item{width}{Card width. Numeric between 1 and 12 according to the
 Bootstrap 4 grid system.}
+
+\item{stacked}{Apply a stacked effect to the card.}
 
 \item{padding}{Card padding. Leave NULL or "sm", "md" and "lg".}
 }
