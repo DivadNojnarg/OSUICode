@@ -1089,13 +1089,13 @@ insert_tabler_tab <- function(inputId, tab, target, position = c("before", "afte
       content = if (handler_type == 1) {
         tab
       } else if (handler_type == 2) {
-        processDeps(tab, session)
+        renderTags(tab)
       },
       # in production, only use processDeps(navbar_menu_item, session)
       link = if (handler_type == 1) {
         navbar_menu_item
       } else if (handler_type == 2) {
-        processDeps(navbar_menu_item, session)
+        renderTags(navbar_menu_item)
       },
       target = target,
       position = position,

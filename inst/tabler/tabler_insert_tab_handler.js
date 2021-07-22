@@ -37,8 +37,8 @@ $(function() {
     // needed to render input/output in newly added tab. It takes the possible
     // deps and add them to the tag. Indeed, if we insert a tab, its deps are not
     // included in the page so it can't render properly
-    Shiny.renderContent($liTag[0], {html: $liTag.html(), deps: message.link.deps});
-    Shiny.renderContent($divTag[0], {html: $divTag.html(), deps: message.content.deps});
+    Shiny.renderContent($liTag[0], {html: $liTag.html(), deps: message.link.dependencies});
+    Shiny.renderContent($divTag[0], {html: $divTag.html(), deps: message.content.dependencies});
 
     if (message.select) {
       // trigger a click on corresponding the new tab button.
