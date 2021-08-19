@@ -17,15 +17,16 @@ get_example <- function(path) {
     app = cat(
       paste0(
         "### RUN ### \n",
-        "shiny::shinyAppDir( \n",
-        " system.file( \n",
-        "  \"", path, "\", \n",
-        "  package = \"OSUICode\" \n",
-        " ) \n",
-        ") \n",
+        "# shiny::shinyAppDir( \n",
+        "# system.file( \n",
+        "#  \"", path, "\", \n",
+        "#  package = \"OSUICode\" \n",
+        "# ) \n",
+        "#) \n",
+        "\n",
         collapse = "\n"
       ),
-      "\n"
+      sep = ""
     ),
     code = print_function_code(
       file.path(
