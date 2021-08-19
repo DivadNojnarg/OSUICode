@@ -2,7 +2,6 @@ print_function_code <- function(con) {
   cat("### APP CODE ### \n", paste0(readLines(con), collapse = "\n"), "\n")
 }
 
-
 #' Run Shiny app example
 #'
 #' @param path App location.
@@ -11,18 +10,22 @@ print_function_code <- function(con) {
 #'
 #' @examples
 #' if (interactive()) {
-#'  run_example("dj-system")
+#'  get_example("dj-system")
 #' }
-run_example <- function(path) {
+get_example <- function(path) {
   list(
-    app =  cat(
-      "### RUN ###: \n",
+    app = cat(
       paste0(
-        "shiny::shinyAppDir(system.file(\"",
-        path,
-        "\", package = \"OSUICode\"))"
+        "### RUN ### \n",
+        "shiny::shinyAppDir( \n",
+        " system.file( \n",
+        "  \"", path, "\", \n",
+        "  package = \"OSUICode\" \n",
+        " ) \n",
+        ") \n",
+        collapse = "\n"
       ),
-      "\n \n"
+      "\n"
     ),
     code = print_function_code(
       file.path(
