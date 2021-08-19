@@ -1,5 +1,20 @@
 print_function_code <- function(con) {
-  cat("### APP CODE ### \n", paste0(readLines(con), collapse = "\n"), "\n")
+  cat("### APP CODE ### \n", paste0(readLines(con), collapse = "\n"), "\n", sep = "")
+}
+
+
+#' Wrapper for running shiny app example
+#'
+#' Similar to shiny::shinyAppDir
+#'
+#' @param path App location.
+#' @export
+#' @examples
+#' if (interactive()) {
+#'  run_example("dj-system")
+#' }
+run_example <- function(path) {
+  shinyAppDir(system.file(path, package = "OSUICode"))
 }
 
 #' Run Shiny app example
@@ -17,12 +32,9 @@ get_example <- function(path) {
     app = cat(
       paste0(
         "### RUN ### \n",
-        "# shiny::shinyAppDir( \n",
-        "# system.file( \n",
-        "#  \"", path, "\", \n",
-        "#  package = \"OSUICode\" \n",
+        "# OSUICode::run_example( \n",
+        "#  \"", path, "\" \n",
         "# ) \n",
-        "#) \n",
         "\n",
         collapse = "\n"
       ),
