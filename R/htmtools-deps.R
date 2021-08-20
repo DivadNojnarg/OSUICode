@@ -51,3 +51,30 @@ my_card_with_deps <- function(...) {
   tagList(cardTag, bs4_card_dep())
 
 }
+
+
+# Get shinydashboard deps
+dashboard_ui <- shinydashboard::dashboardPage(
+  shinydashboard::dashboardHeader(),
+  shinydashboard::dashboardSidebar(),
+  shinydashboard::dashboardBody()
+)
+dashboard_deps <- findDependencies(dashboard_ui)
+
+
+#' Standalone shinydashboard box
+#'
+#' box from shinydashboard you can use inside
+#' a basic shiny app.
+#'
+#' @param title Box title.
+#' @param status Box color.
+#'
+#' @return A box HTML tag.
+#' @export
+my_dashboard_box <- function(title, status) {
+  tagList(
+    shinydashboard::box(title = title, status = status),
+    dashboard_deps
+  )
+}
