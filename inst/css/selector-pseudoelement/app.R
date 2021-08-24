@@ -10,7 +10,7 @@ ui <- navbarPage(
             font-size: 20px;
             font-weight: bold;
           }
-          .navbar-nav > li:first-child > a::after {
+          .navbar-nav > li:first-child > a::before {
             content: '✌️'
           }
         "
