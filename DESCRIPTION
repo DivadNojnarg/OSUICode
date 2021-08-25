@@ -29,7 +29,7 @@ Imports:
     httpuv,
     websocket,
     knitr,
-    webshot
+    bslib
 Suggests: 
     testthat,
     shinyWidgets,
