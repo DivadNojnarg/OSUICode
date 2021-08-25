@@ -2,7 +2,7 @@ library(shiny)
 library(bslib)
 library(thematic)
 
-default <- bs_theme()
+default <- bs_theme(version = 4)
 
 ui <- fluidPage(
   theme = default,

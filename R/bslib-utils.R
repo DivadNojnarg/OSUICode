@@ -81,6 +81,7 @@ super_card_dependency <- function(theme) {
 #'
 #' @export
 bslib_neon_theme <- bslib::bs_theme(
+  version = 4,
   bg = "#000000",
   fg = "#FFFFFF",
   primary = "#9600FF",
@@ -97,7 +98,7 @@ bslib_neon_theme <- bslib::bs_theme(
 #' Dark theme for bslib demo apps
 #'
 #' @export
-bslib_dark_theme <- bslib::bs_theme() %>%
+bslib_dark_theme <- bslib::bs_theme(version = 4) %>%
   bslib::bs_theme_update(
     bg = "black",
     fg = "white",

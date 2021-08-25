@@ -13,6 +13,7 @@ theme %>%
 
 windows_grey <- "#c0c0c0"
 windows98_theme <- bs_theme(
+  version = 4,
   bg = windows_grey,
   fg = "#222222",
   primary = "#03158b",

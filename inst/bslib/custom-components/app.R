@@ -15,7 +15,7 @@ server <- function(input, output, session) {
       if (input$custom_mode) {
         bslib_dark_theme
       } else {
-        bs_theme()
+        bs_theme(version = 4)
       }
     )
   })
