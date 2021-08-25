@@ -20,12 +20,15 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
 
-  dummy_task <- reactive(Sys.sleep(5))
+  dummy_task <- reactive({
+    Sys.sleep(5)
+    "New title"
+  })
 
   output$custom_box <- renderUI({
     dummy_task()
     box2(
-      title = "Box",
+      title = dummy_task(),
       "Box body",
       background = input$background
     )
