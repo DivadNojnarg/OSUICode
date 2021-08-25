@@ -241,44 +241,18 @@ updateCustomTextInputExample <- function(binding_step) {
 
 
 
-#' Example showing how to edit an input binding
+#' Create HTML dependency for edit binding example
 #'
-#' @return A shiny app example
+#' @return An HTML dependency that may be attached to a tag.
 #' @export
-editBindingExample <- function() {
-  ui <- fluidPage(
-    actionButton("button1", icon("plus")),
-    actionButton("button2", uiOutput("val")),
-    actionButton("reset", icon("undo")),
-    plotOutput("plot")
-  ) %>% tagList(
-    htmlDependency(
-      name = "edit-binding",
-      version = "1.0.0",
-      src = c(file = system.file("input-system/input-bindings", package = "OSUICode")),
-      script = "editBinding.js"
-    )
+editBindingDeps <- function() {
+  htmlDependency(
+    name = "edit-binding",
+    version = "1.0.0",
+    src = c(file = system.file(
+      "input-system/input-bindings",
+      package = "OSUICode"
+    )),
+    script = "editBinding.js"
   )
-
-  server <- function(input, output) {
-    output$val <- renderUI({
-      paste("Value: ", input$button2)
-    })
-
-    output$plot <- renderPlot({
-      validate(need(input$button2 >= 10, message = "Only visible after 10 clicks on the second button"))
-      hist(rnorm(100))
-    })
-
-    observeEvent(input$button2, {
-      if (input$button2 == 0) {
-        showNotification(
-          "Button successfuly reset",
-          type = "warning"
-        )
-      }
-    })
-  }
-
-  shinyApp(ui, server)
 }
