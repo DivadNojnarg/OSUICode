@@ -10,7 +10,7 @@ ui <- fluidPage(
   tags$style("body { background-color: ghostwhite};"),
 
   br(),
-  box2(
+  box(
     title = textOutput("box_state"),
     "Box body",
     id = "mybox",
@@ -40,7 +40,7 @@ server <- function(input, output, session) {
   })
 
   observeEvent(input$toggle_box, {
-    updateBox2("mybox")
+    updateBox("mybox")
   })
 
 }

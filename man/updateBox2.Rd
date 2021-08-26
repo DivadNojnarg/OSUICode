@@ -2,59 +2,28 @@
 % Please edit documentation in R/box2.R
 \name{updateBox2}
 \alias{updateBox2}
-\title{Collapse a \link{box2} tag.}
+\title{Update a \link{box2} tag.}
 \usage{
-updateBox2(id, session = getDefaultReactiveDomain())
+updateBox2(
+  id,
+  action = c("toggle", "update"),
+  options = NULL,
+  session = getDefaultReactiveDomain()
+)
 }
 \arguments{
-\item{id}{Box to toggle.}
+\item{id}{If passed, the item will behave like an action button.}
+
+\item{action}{Action to trigger: either collapse, remove, restore or update.}
+
+\item{options}{If action is update, a list of new options to configure the box, such as
+\code{list(title = "new title", status = NULL, solidHeader = FALSE, 
+background = "red", width = 6, height = "200px", collapsible = FALSE, closable = FALSE)}.
+If the box had a background/status (any item that may be NULL), you must explicitly pass background = NULL, 
+if you want to remove the background value.}
 
 \item{session}{Shiny session object.}
 }
 \description{
-Collapse a \link{box2} tag.
-}
-\examples{
-if (interactive()) {
- library(shiny)
- library(shinyWidgets)
-
- ui <- fluidPage(
-  # import shinydashboard deps without the need of the dashboard
-  # template
-  useShinydashboard(),
-
-  tags$style("body { background-color: ghostwhite};"),
-
-  br(),
-  box2(
-   title = textOutput("box_state"),
-   "Box body",
-   id = "mybox",
-   collapsible = TRUE,
-   plotOutput("plot")
-  ),
-  actionButton("toggle_box", "Toggle Box", class = "bg-success")
- )
-
- server <- function(input, output, session) {
-  output$plot <- renderPlot({
-    req(!input$mybox$collapsed)
-    plot(rnorm(200))
-  })
-
-  output$box_state <- renderText({
-    state <- if (input$mybox$collapsed) "collapsed" else "uncollapsed"
-    paste("My box is", state)
-  })
-
-  observeEvent(input$toggle_box, {
-    updateBox2("mybox")
-  })
-
- }
-
- shinyApp(ui, server)
-
-}
+Update a \link{box2} tag.
 }
