@@ -1,3 +1,9 @@
+#' Box JS dependencies
+#'
+#' Provide basic binding to toggle the box
+#' on the client
+#'
+#' @export
 boxDeps <- function() {
   htmlDependency(
     name = "boxBinding",
@@ -7,8 +13,13 @@ boxDeps <- function() {
   )
 }
 
-
-box2Deps <- function(steroids) {
+#' Enhanced Box JS dependencies
+#'
+#' Provide enhanced binding to toggle and update some
+#' box properties on the client (title en width).
+#'
+#' @export
+box2Deps <- function() {
   htmlDependency(
     name = "boxBinding",
     version = "1.0.0",
