@@ -53,13 +53,8 @@ $.extend(boxBinding, {
       if (value.options.hasOwnProperty("title")) {
         if (value.options.title !== config.title) {
           let newTitle;
-          if (typeof value.options.title !== "string") {
-            newTitle = `<h3 class="box-title">${value.options.title[0]}</h3>`
-            newTitle = $.parseHTML(newTitle);
-          } else {
-            newTitle = `<h3 class="box-title">${value.options.title}</h3>`
-            newTitle = $.parseHTML(newTitle);
-          }
+          newTitle = `<h3 class="box-title">${value.options.title}</h3>`
+          newTitle = $.parseHTML(newTitle);
 
           $(el)
             .find(".box-title")

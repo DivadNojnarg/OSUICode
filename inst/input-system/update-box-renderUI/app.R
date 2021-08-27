@@ -22,13 +22,14 @@ server <- function(input, output, session) {
 
   dummy_task <- reactive({
     Sys.sleep(5)
-    "New title"
+    12
   })
 
   output$custom_box <- renderUI({
     dummy_task()
-    box2(
-      title = dummy_task(),
+    box(
+      title = "Box",
+      width = dummy_task(),
       "Box body",
       background = input$background
     )

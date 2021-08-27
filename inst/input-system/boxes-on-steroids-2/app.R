@@ -15,28 +15,26 @@ ui <- fluidPage(
     "Box body",
     id = "mybox",
     height = "400px",
-    width = 12,
-    steroids = TRUE
-  ),
-  numericInput("box_width", "Box width", 6, 1, 12),
-  actionButton(
-    "update_box",
-    "Update box",
-    class = "bg-success"
+    width = 6
   )
 )
 
 server <- function(input, output, session) {
 
-  observeEvent(input$update_box, {
+  dummy_task <- reactive({
+    Sys.sleep(5)
+    12
+  })
+
+  observeEvent(dummy_task(), {
     updateBox2(
       "mybox",
       action = "update",
       options = list(
-        width = input$box_width,
+        width = dummy_task(),
         title = tagList(
           shinydashboardPlus::dashboardBadge("New", color = "red"),
-          "title"
+          "New title"
         )
       )
     )
