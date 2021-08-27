@@ -1,13 +1,11 @@
 library(shiny)
 
 shinyApp(
-  ui = shinyUI(
-    fluidPage(
-      textInput('txt_a', 'Input Text A'),
-      textInput('txt_b', 'Input Text B'),
-      uiOutput('txt_c_out'),
-      verbatimTextOutput("show_last")
-    )
+  ui = fluidPage(
+    textInput('txt_a', 'Input Text A'),
+    textInput('txt_b', 'Input Text B'),
+    uiOutput('txt_c_out'),
+    verbatimTextOutput("show_last")
   ),
   server = function(input, output, session) {
     output$txt_c_out <- renderUI({
