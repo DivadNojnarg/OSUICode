@@ -78,7 +78,7 @@ box <- function(..., id = NULL, title = NULL, footer = NULL,
   }
 
   tagList(
-    box2Deps(),
+    boxDeps(),
     div(
       class = if (!is.null(width)) paste0("col-sm-", width),
       div(
