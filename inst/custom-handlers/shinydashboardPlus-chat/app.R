@@ -48,7 +48,7 @@ shinyApp(
         content = list(
           author = "David",
           date = "Now",
-          image = "https://i.pinimg.com/originals/f1/15/df/f115dfc9cab063597b1221d015996b39.jpg",
+          image = dashboardUserImage,
           type = "received",
           text = tagList(
             sliderInput(
