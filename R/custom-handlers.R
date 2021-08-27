@@ -1,3 +1,30 @@
+#' Function demonstrating the use of Shiny custom message handlers
+#'
+#' Send a message from R to JavaScript every 5 seconds.
+#' The JS answer is an alert containing the message sent by R.
+#'
+#' @param text Message to send.
+#' @param session Shiny session object.
+#' @export
+say_hello_to_js <- function(text, session = getDefaultReactiveDomain()) {
+  session$sendCustomMessage(type = 'say-hello', message = text)
+}
+
+#' JS script to run the pokemon app
+#'
+#' @export
+pokemonDeps <- function() {
+  htmlDependency(
+    name = "pokemon",
+    version = "1.0.0",
+    src = c(file = "pokemon-1.0.0"),
+    script = "pokemons-handlers.js",
+    package = "OSUICode"
+  )
+}
+
+
+
 dropdownDeps <- function() {
   htmltools::htmlDependency(
     name = "bs4-dropdown",
@@ -89,5 +116,30 @@ dropdownMenu <- function(..., type = c("messages", "notifications", "tasks"),
         )
       }
     )
+  )
+}
+
+#' User image from dropdownMenu items
+#'
+#' @export
+dashboardUserImage <- "https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+
+#' Generate dashboard UI for dropdownMenu example
+#'
+#' @export
+dropdownMenuUI <- function() {
+  bs4Dash::dashboardPage(
+    dark = FALSE,
+    header = bs4Dash::dashboardHeader(
+      rightUi = OSUICode::dropdownMenu(
+        badgeStatus = "danger",
+        type = "messages"
+      )
+    ),
+    sidebar = bs4Dash::dashboardSidebar(),
+    controlbar = bs4Dash::dashboardControlbar(),
+    footer = bs4Dash::dashboardFooter(),
+    title = "test",
+    body = bs4Dash::dashboardBody(actionButton("add", "Add dropdown item"))
   )
 }
