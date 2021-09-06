@@ -1,3 +1,9 @@
+library(shiny)
+library(OSUICode)
+library(thematic)
+
+thematic_shiny()
+
 ui <- tabler_page(
   tags$head(tags$script(src = "tabler_tabs_init.js")),
   tabler_navbar(
