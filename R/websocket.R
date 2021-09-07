@@ -72,6 +72,8 @@ websocket_client <- function(host = "127.0.0.1", port = 8080) {
 #'
 #' @param delay To simulate computationally intense task.
 #' @return An httpuv powered app
+#' @importFrom graphics hist
+#' @importFrom stats rnorm
 #' @export
 #'
 #' @examples

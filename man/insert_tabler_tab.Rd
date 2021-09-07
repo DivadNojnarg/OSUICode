@@ -10,7 +10,6 @@ insert_tabler_tab(
   target,
   position = c("before", "after"),
   select = FALSE,
-  handler_type,
   session = getDefaultReactiveDomain()
 )
 }
@@ -25,24 +24,8 @@ insert_tabler_tab(
 
 \item{select}{Whether to select the new tab at start. Default to FALSE.}
 
-\item{handler_type}{Only for the Book purpose. Allow to select a given
-custom message handler, to produce different behavior. You don't need
-this in production!}
-
 \item{session}{Shiny session.}
 }
 \description{
 Insert a tab in a \link{tabler_navbar}
-}
-\examples{
-if (interactive()) {
- library(shiny)
- # See book section 15.4 (Tab events)
- # insert tab with wrong custom handler. The tab is inserted
- # but nothing is displayed inside.
- insert_tabler_tab_example(1)
-
- # insert tab with good custom handler.
- insert_tabler_tab_example(2)
-}
 }

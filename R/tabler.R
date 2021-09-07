@@ -1054,25 +1054,10 @@ show_tabler_dropdown <- function(id, session = getDefaultReactiveDomain()) {
 #' @param target Target tab after or before which the new tab will be inserted.
 #' @param position Insert position: "before" or "after".
 #' @param select Whether to select the new tab at start. Default to FALSE.
-#' @param handler_type Only for the Book purpose. Allow to select a given
-#' custom message handler, to produce different behavior. You don't need
-#' this in production!
 #' @param session Shiny session.
 #' @export
-#'
-#' @examples
-#' if (interactive()) {
-#'  library(shiny)
-#'  # See book section 15.4 (Tab events)
-#'  # insert tab with wrong custom handler. The tab is inserted
-#'  # but nothing is displayed inside.
-#'  insert_tabler_tab_example(1)
-#'
-#'  # insert tab with good custom handler.
-#'  insert_tabler_tab_example(2)
-#' }
 insert_tabler_tab <- function(inputId, tab, target, position = c("before", "after"),
-                              select = FALSE, handler_type, session = getDefaultReactiveDomain()) {
+                              select = FALSE, session = getDefaultReactiveDomain()) {
 
   inputId <- session$ns(inputId)
   position <- match.arg(position)
@@ -1127,7 +1112,7 @@ insert_tabler_tab <- function(inputId, tab, target, position = c("before", "afte
 #' @param session Shiny session.
 #' @export
 insert_tabler_tab_2 <- function(inputId, tab, target, position = c("before", "after"),
-                              select = FALSE, handler_type, session = getDefaultReactiveDomain()) {
+                              select = FALSE, session = getDefaultReactiveDomain()) {
 
   inputId <- session$ns(inputId)
   position <- match.arg(position)

@@ -10,7 +10,6 @@ insert_tabler_tab_2(
   target,
   position = c("before", "after"),
   select = FALSE,
-  handler_type,
   session = getDefaultReactiveDomain()
 )
 }
