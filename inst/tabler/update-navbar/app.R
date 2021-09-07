@@ -13,13 +13,11 @@ ui <- tabler_page(
       id = "current_tab",
       tabler_navbar_menu_item(
         text = "Tab 1",
-        icon = NULL,
         tabName = "tab1",
         selected = TRUE
       ),
       tabler_navbar_menu_item(
         text = "Tab 2",
-        icon = NULL,
         tabName = "tab2"
       )
     ),
