@@ -9,16 +9,16 @@ tablers_deps <- htmlDependency(
 
 # contains bindings and other JS code
 tabler_custom_js <- htmlDependency(
-  name = "tabler-bindings",
+  name = "tabler-custom-js",
   version = "1.0.7",
   src = "tabler",
   package = "OSUICode",
   script = c(
-    "input-bindings/navbarMenuBinding.js",
-    "tabler_progress_handler.js",
-    "tabler_toast_handler.js",
-    "tabler_dropdown_handler.js",
-    "tabler_insert_tab_handler.js"
+    "bindings/navbarMenuBinding.js",
+    "handlers/tabler_progress_handler.js",
+    "handlers/tabler_toast_handler.js",
+    "handlers/tabler_dropdown_handler.js",
+    "handlers/tabler_insert_tab_handler.js"
   )
 )
 
@@ -452,16 +452,6 @@ update_tabler_tab_item <- function(inputId, value, session = getDefaultReactiveD
 
 
 
-#' Run the update_tabler_tab_item example
-#'
-#' @return A shiny app
-#' @export
-update_tabler_navbar_example <- function() {
-  shinyAppDir(system.file('tabler/input-bindings', package='OSUICode'))
-}
-
-
-
 #' Create a row container for \link{tabler_card}
 #'
 #' @param ... Any Tabler element.
@@ -794,13 +784,28 @@ update_tabler_progress <- function(id, value, session = shiny::getDefaultReactiv
 }
 
 
-
-#' Run the update_tabler_progress example
+#' Update a \link{tabler_progress} on the client
 #'
-#' @return A shiny app
+#' Contrary to \link{update_tabler_progress}, this does not use session$sendCustomMessage. Everything
+#' happens on the client. This code is invoked in the R UI.
+#'
+#' @param trigger Trigger id. Uses document.getElementById so
+#' no need to add a '#'.
+#' @param target Target id. Uses document.getElementById so
+#' no need to add a '#'.
 #' @export
-update_tabler_progress_example <- function() {
-  shinyAppDir(system.file('tabler/update-progress-app', package='OSUICode'))
+update_tabler_progress2 <- function(trigger, target) {
+  tags$script(
+    paste0(
+      "$(document).on('shiny:connected', function(event) {
+        let slider = document.getElementById('", trigger, "');
+        slider.noUiSlider.on('update', function(event) {
+          $('#", target, "').css('width', this.get() + '%');
+        });
+      });
+      "
+    )
+  )
 }
 
 
@@ -899,7 +904,7 @@ tabler_toast <- function(id, title = NULL, subtitle = NULL, ..., img = NULL) {
 show_tabler_toast <- function(id, options = NULL, session = getDefaultReactiveDomain()) {
   message <- dropNulls(
     list(
-      id = id,
+      id = session$ns(id),
       options = options
     )
   )
