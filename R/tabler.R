@@ -937,7 +937,7 @@ tabler_dropdown <- function(..., id = NULL, title, subtitle = NULL, img = NULL) 
     )
   }
 
-  titles_tag <- div(
+  title_tag <- div(
     class = "d-none d-xl-block pl-2",
     div(title),
     if (!is.null(subtitle)) {
@@ -952,7 +952,7 @@ tabler_dropdown <- function(..., id = NULL, title, subtitle = NULL, img = NULL) 
     `data-toggle` = "dropdown",
     `aria-expanded` = "false"
   ) %>%
-    tagAppendChildren(img_tag, titles_tag)
+    tagAppendChildren(img_tag, title_tag)
 
   dropdown_tag <- div(
     class = "dropdown-menu dropdown-menu-right",
@@ -976,7 +976,12 @@ tabler_dropdown <- function(..., id = NULL, title, subtitle = NULL, img = NULL) 
 #' a \link{tabler_button}.
 #' @export
 tabler_dropdown_item <- function(..., id = NULL) {
-  a(id = id, class = "dropdown-item action-button", href = "#", ...)
+  a(
+    id = id,
+    class = "dropdown-item action-button",
+    href = "#",
+    ...
+  )
 }
 
 
@@ -1033,7 +1038,10 @@ tabler_dropdown_item <- function(..., id = NULL) {
 #'  shinyApp(ui, server)
 #' }
 show_tabler_dropdown <- function(id, session = getDefaultReactiveDomain()) {
-  session$sendCustomMessage(type = "show-dropdown", message = id)
+  session$sendCustomMessage(
+    type = "show-dropdown",
+    message = session$ns(id)
+  )
 }
 
 
