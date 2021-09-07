@@ -2,6 +2,7 @@ library(shiny)
 library(OSUICode)
 
 ui <- f7_page(
+  allowPWA = FALSE,
   tags$div(
     class = "list inset",
     tags$ul(
@@ -9,25 +10,15 @@ ui <- f7_page(
         tags$a(
           href = "#",
           id = "mybutton",
-          class = "list-button",
-          "Large Green Button"
+          class = "list-button color-red",
+          "Large Red Button"
         )
       )
     )
   ),
-  navbar = f7_navbar("Title"),
+  navbar = f7_navbar("Taphold demo"),
   toolbar = f7_toolbar(),
-  title = "shinyMobile",
-  options = list(
-    theme = "ios",
-    version = "1.0.0",
-    touch = list(
-      tapHold = TRUE
-    ),
-    color = "#42f5a1",
-    filled = TRUE,
-    dark = TRUE
-  )
+  title = "shinyMobile"
 )
 
 server <- function(input, output, session) {}

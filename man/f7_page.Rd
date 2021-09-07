@@ -4,7 +4,14 @@
 \alias{f7_page}
 \title{Mobile page wrapper}
 \usage{
-f7_page(..., navbar, toolbar, title = NULL, options = NULL, allowPWA = TRUE)
+f7_page(
+  ...,
+  navbar,
+  toolbar,
+  title = NULL,
+  options = shinyMobile_options,
+  allowPWA = TRUE
+)
 }
 \arguments{
 \item{...}{Body elements}
@@ -21,9 +28,4 @@ f7_page(..., navbar, toolbar, title = NULL, options = NULL, allowPWA = TRUE)
 }
 \description{
 Mobile page wrapper
-}
-\examples{
-if (interactive()) {
- shiny::shinyAppDir(system.file("shinyMobile/simple", package = "OSUICode"))
-}
 }

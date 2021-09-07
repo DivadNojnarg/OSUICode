@@ -1,3 +1,30 @@
+#' Default shinyMobile template options
+#'
+#' @export
+shinyMobile_options <- list(
+  theme = "auto",
+  dark = TRUE,
+  filled = FALSE,
+  color = "#007aff",
+  # TOUCH MODULE OPTIONS
+  touch = list(
+    tapHold = TRUE,
+    tapHoldDelay = 750,
+    iosTouchRipple = FALSE
+  ),
+  iosTranslucentBars = FALSE,
+  navbar = list(
+    iosCenterTitle = TRUE,
+    hideOnPageScroll = TRUE
+  ),
+  toolbar = list(
+    hideOnPageScroll = FALSE
+  )
+  # remaining options ...
+)
+
+
+
 #' Mobile page wrapper
 #'
 #' @param ... Body elements
@@ -7,11 +34,9 @@
 #' @param options Options to configure the template.
 #' @param allowPWA Whether to allow PWA. Defaults to TRUE.
 #' @export
-#' @examples
-#' if (interactive()) {
-#'  shiny::shinyAppDir(system.file("shinyMobile/simple", package = "OSUICode"))
-#' }
-f7_page <- function(..., navbar, toolbar, title = NULL, options = NULL, allowPWA = TRUE) {
+f7_page <- function(..., navbar, toolbar, title = NULL,
+                    options = shinyMobile_options,
+                    allowPWA = TRUE) {
 
   config_tag <- tags$script(
     type = "application/json",
@@ -63,7 +88,11 @@ f7_page <- function(..., navbar, toolbar, title = NULL, options = NULL, allowPWA
     ),
     add_dependencies(
       body_tag,
-      deps = c("framework7", "OSUICode", "pwa", "pwacompat")
+      deps = c(
+        "framework7",
+        "OSUICode",
+        if (allowPWA) c("pwa", "pwacompat")
+      )
     )
   )
 }
