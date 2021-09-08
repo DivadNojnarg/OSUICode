@@ -8,13 +8,13 @@
 #' @importFrom htmltools tagList htmlDependency
 #' @export
 add_OSUICode_deps <- function(tag) {
-  OSUICode_deps <- htmlDependency(
+ OSUICode_deps <- htmlDependency(
   name = "OSUICode",
   version = "0.0.0.9000",
   src = c(file = "OSUICode-0.0.0.9000"),
-  script = "js/OSUICode.js",
+  script = "js/OSUICode.min.js",
   package = "OSUICode",
  )
  tagList(tag, OSUICode_deps)
 }
-
+    

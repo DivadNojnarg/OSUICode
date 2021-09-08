@@ -30,7 +30,8 @@ export const setConfig = () => {
   config.data = function() {
     return {
       // any other widget type to cache ...
-      gauge: []
+      gauge: [],
+      tooltips: [],
     };
   };
 

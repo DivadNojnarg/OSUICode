@@ -70,7 +70,7 @@ processDeps <- function(tags, session) {
   )
 }
 
-sendCustomMessage <- function(type, message, session) {
+send_custom_message <- function(type, message, session) {
   session$sendCustomMessage(
     type,
     jsonlite::toJSON(

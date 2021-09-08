@@ -7,13 +7,15 @@
     "man": "man"
   },
   "scripts": {
+    "test": "mocha srcjs/test",
     "build-dev": "esbuild srcjs/main.js --bundle --format=esm --outfile=inst/OSUICode-0.0.0.9000/js/OSUICode.js",
     "build-prod": "esbuild srcjs/main.js --bundle --minify --sourcemap --format=esm --outfile=inst/OSUICode-0.0.0.9000/js/OSUICode.min.js"
   },
   "keywords": [],
   "author": "",
-  "license": "MIT + file LICENSE",
+  "license": "GPL-3",
   "devDependencies": {
-    "esbuild": "^0.8.46"
+    "esbuild": "^0.8.46",
+    "mocha": "^8.3.0"
   }
 }

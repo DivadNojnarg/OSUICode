@@ -4,7 +4,7 @@ $( document ).ready(function() {
   const widgets = uiWidgets.concat(serverWidgets);
 
   // Instantiate a widget
-  activateWidget = function(widget) {
+  const activateWidget = (widget) => {
     // Handle ui side widgets
     if (uiWidgets.indexOf(widget) > -1) {
       $("." + widget).each(function() {
@@ -74,6 +74,47 @@ $( document ).ready(function() {
     var newInstance = app[instanceFamily].create(newConfig);
     // Update app data
     app.data[instanceFamily][message.id] = newInstance;
+  });
+
+  Shiny.addCustomMessageHandler('add_tooltip', function(message) {
+    // We store all created instances in app data so that we don't
+    // recreate them later if they exist ...
+    if (app.data.tooltips[message.targetEl] === undefined) {
+      // create instance
+      let t = app.tooltip.create(message);
+      // Open tooltip
+      t.show();
+      // Storage in app data (tooltips array)
+      app.data.tooltips[message.targetEl] = t;
+    }
+  });
+
+  Shiny.addCustomMessageHandler(
+    'update_tooltip', function(message) {
+    if (app.data.tooltips[message.targetEl] !== undefined) {
+      // Try to get the instance
+      let t = app.tooltip.get(message.targetEl);
+      if (message.action === "update") {
+        if (t) {
+          t.setText(message.text);
+        }
+      } else if (message.action === "toggle") {
+        if (t) {
+          // create copy that won't be modified if t is destroyed!
+          let cachedTooltip = Object.assign({}, t);
+          // save copy to replace the deleted one in the app data
+          app.data.tooltips[message.targetEl] = cachedTooltip;
+          // destroy current instance
+          t.destroy();
+        } else {
+          // Parameters
+          let pars = app.data.tooltips[message.targetEl].params;
+          // recreate the tooltip based on the copy configuration
+          t = app.tooltip.create(pars);
+          app.data.tooltips[message.targetEl] = t;
+        }
+      }
+    }
   });
 
 });

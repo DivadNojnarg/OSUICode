@@ -2,13 +2,14 @@ library(shiny)
 library(OSUICode)
 
 ui <- f7_page(
-  navbar = f7_navbar("Title"),
+  allowPWA = FALSE,
+  navbar = f7_navbar("Notifications"),
   toolbar = f7_toolbar(),
   title = "Notifications"
 )
 
 server <- function(input, output, session) {
-  observe({
+  observeEvent(TRUE, once = TRUE, {
     f7_notif(
       id = "welcome",
       "Helloooooo",

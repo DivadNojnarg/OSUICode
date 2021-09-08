@@ -1,7 +1,6 @@
 library(shiny)
 library(OSUICode)
 
-shinyMobile_options$filled <- TRUE
 shinyMobile_options$dark <- FALSE
 
 ui <- f7_page(
@@ -10,15 +9,23 @@ ui <- f7_page(
   tags$div(
     class = "block",
     tags$button(
+      id = "mybutton",
       class = "button button-large button-fill",
       "Click"
     )
   ),
-  navbar = f7_navbar("White/filled design"),
+  navbar = f7_navbar("Add tooltip"),
   toolbar = f7_toolbar(),
-  title = "shinyMobile"
+  title = "Notifications"
 )
 
-server <- function(input, output, session) {}
+server <- function(input, output, session) {
+  observeEvent(TRUE, once = TRUE, {
+    add_f7_tooltip(
+      id = "mybutton",
+      options = list(text = "This is a button")
+    )
+  })
+}
 
 shinyApp(ui, server)

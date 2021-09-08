@@ -190,7 +190,7 @@ f7_notif <- function(id = NULL, text, options = NULL, session = shiny::getDefaul
 
   message <- c(dropNulls(list(id = id, text = text)), options)
   # see my-app.js function
-  sendCustomMessage("notification", message, session)
+  send_custom_message("notification", message, session)
 
 }
 
@@ -227,5 +227,67 @@ update_f7_instance <- function(id, options, session = shiny::getDefaultReactiveD
   options <- listRenderTags(options)
 
   message <- list(id = id, options = options)
-  sendCustomMessage("update-instance", message, session)
+  send_custom_message("update-instance", message, session)
+}
+
+
+
+validate_selector <- function(id, selector) {
+  if (!is.null(id) && !is.null(selector)) {
+    stop("Please choose either target or selector!")
+  }
+}
+
+"%OR%" <- function(a, b) if (!is.null(a)) a else b
+
+
+
+#' Create a tooltip on the server side
+#'
+#' @param id Target id.
+#' @param selector Target selector.
+#' @param options Tooltip options
+#' @param session Shiny session object
+#' @export
+add_f7_tooltip <- function(
+  id = NULL,
+  selector = NULL,
+  options,
+  session = shiny::getDefaultReactiveDomain()
+) {
+  # We use already defined popover functions
+  validate_selector(id, selector)
+  if (!is.null(id)) id <- paste0("#", session$ns(id))
+  options$targetEl <- id %OR% selector
+  send_custom_message("add_tooltip", options, session)
+}
+
+
+
+#' Update/toggle tooltip on server side
+#'
+#' @param id Tooltip id.
+#' @param selector Tooltip selector.
+#' @param action Action to perform: toggle or update.
+#' @param text New text if action is update.
+#' @param session Shiny session object.
+#' @export
+update_f7_tooltip <- function(
+  id = NULL,
+  selector = NULL,
+  action = c("toggle", "update"),
+  text = NULL,
+  session = shiny::getDefaultReactiveDomain()
+) {
+  validate_selector(id, selector)
+  if (!is.null(id)) id <- paste0("#", session$ns(id))
+  targetEl <- id %OR% selector
+  message <- dropNulls(
+    list(
+      targetEl = targetEl,
+      action = action,
+      text = text
+    )
+  )
+  send_custom_message("update_tooltip", message, session)
 }

@@ -11,6 +11,7 @@ my_external_link$children[[1]] <- "External link"
 
 # shinyMobile
 ui <- f7_page(
+  allowPWA = FALSE,
   navbar = f7_navbar("Links"),
   toolbar = f7_toolbar(
     my_broken_link,
