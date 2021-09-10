@@ -30,15 +30,6 @@ bs4_deps <- htmlDependency(
   script = "bootstrap.bundle.min.js"
 )
 
-# jQUery dependencies. Since Shiny already has 3.4.1, this is not mandatory
-jQuery_deps <- htmlDependency(
-  name = "jquery",
-  version = "3.5.0",
-  src = c(href = "https://code.jquery.com/"),
-  script = "jquery-3.5.0.slim.min.js"
-)
-
-
 #' Create Tabler dependencies
 #'
 #' Add all necessary dependencies so that Tabler works
