@@ -9,33 +9,38 @@ print_function_code <- function(con) {
 #' Similar to shiny::shinyAppDir
 #'
 #' @param path App location.
+#' @param package Where to take the example from. Default
+#' to current package.
 #' @export
 #' @examples
 #' if (interactive()) {
 #'  run_example("dj-system")
 #' }
-run_example <- function(path) {
-  shinyAppDir(system.file(path, package = "OSUICode"))
+run_example <- function(path, package = "OSUICode") {
+  shinyAppDir(system.file(path, package = package))
 }
 
 #' Run Shiny app example
 #'
 #' @param path App location.
 #' @param view_code Whether to print the app code. Default to TRUE.
-#'
+#' @param package Where to take the example from. Default
+#' to current package.
 #' @export
 #'
 #' @examples
 #' if (interactive()) {
 #'  get_example("dj-system")
 #' }
-get_example <- function(path, view_code = TRUE) {
+get_example <- function(path, view_code = TRUE,
+                        package = "OSUICode") {
   cat(
     cat(
       paste0(
         "### RUN ### \n",
         "# OSUICode::run_example( \n",
         "#  \"", path, "\" \n",
+        "#   \"package = \"", package, "\" \n",
         "# ) \n",
         if (view_code) "\n",
         collapse = "\n"
@@ -45,7 +50,7 @@ get_example <- function(path, view_code = TRUE) {
     if (view_code) {
       print_function_code(
         file.path(
-          system.file(path, package = "OSUICode"),
+          system.file(path, package = package),
           "app.R"
         )
       )

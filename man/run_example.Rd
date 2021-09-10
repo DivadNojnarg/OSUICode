@@ -4,10 +4,13 @@
 \alias{run_example}
 \title{Wrapper for running shiny app example}
 \usage{
-run_example(path)
+run_example(path, package = "OSUICode")
 }
 \arguments{
 \item{path}{App location.}
+
+\item{package}{Where to take the example from. Default
+to current package.}
 }
 \description{
 Similar to shiny::shinyAppDir
