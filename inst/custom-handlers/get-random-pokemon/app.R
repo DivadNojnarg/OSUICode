@@ -7,7 +7,8 @@ ui <- fluidPage(
 server <- function(input, output, session) {
 
   observeEvent(input$pokeData, {
-    background <- input$pokeData$sprites$other$`official-artwork`$front_default
+    background <- input$pokeData$sprites$other$
+      `official-artwork`$front_default
     message(background)
     session$sendCustomMessage(
       type = "update_background",
