@@ -51,32 +51,3 @@ add_dependencies <- function(tag, deps = NULL) {
 dropNulls <- function (x) {
   x[!vapply(x, is.null, FUN.VALUE = logical(1))]
 }
-
-
-# Given a Shiny tag object, process singletons and dependencies. Returns a list
-# with rendered HTML and dependency objects.
-processDeps <- function(tags, session) {
-  ui <- htmltools::takeSingletons(tags, session$singletons, desingleton=FALSE)$ui
-  ui <- htmltools::surroundSingletons(ui)
-  dependencies <- lapply(
-    htmltools::resolveDependencies(htmltools::findDependencies(ui)),
-    shiny::createWebDependency
-  )
-  names(dependencies) <- NULL
-
-  list(
-    html = htmltools::doRenderTags(ui),
-    deps = dependencies
-  )
-}
-
-send_custom_message <- function(type, message, session) {
-  session$sendCustomMessage(
-    type,
-    jsonlite::toJSON(
-      message,
-      auto_unbox = TRUE,
-      json_verbatim = TRUE
-    )
-  )
-}

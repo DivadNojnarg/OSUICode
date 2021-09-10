@@ -180,17 +180,19 @@ f7_gauge <- function(id, value, options = NULL) {
 #' @param options List of options.
 #' @param session Shiny session object.
 #' @export
-#' @examples
-#' if (interactive()) {
-#'  shiny::shinyAppDir(system.file("shinyMobile/notification", package = "OSUICode"))
-#' }
-f7_notif <- function(id = NULL, text, options = NULL, session = shiny::getDefaultReactiveDomain()) {
+f7_notif <- function(id = NULL, text, options = NULL,
+                     session = shiny::getDefaultReactiveDomain()) {
 
-  if (!is.null(options$icon)) options$icon <- as.character(options$icon)
+  if (!is.null(options$icon)) {
+    options$icon <- as.character(options$icon)
+  }
 
-  message <- c(dropNulls(list(id = id, text = text)), options)
+  message <- c(
+    dropNulls(list(id = session$ns(id), text = text)),
+    options
+  )
   # see my-app.js function
-  send_custom_message("notification", message, session)
+  session$sendCustomMessage("notification", message)
 
 }
 
@@ -202,10 +204,6 @@ f7_notif <- function(id = NULL, text, options = NULL, session = shiny::getDefaul
 #' @param options New configuration list.
 #' @param session Shiny session object.
 #' @export
-#' @examples
-#' if (interactive()) {
-#'  shiny::shinyAppDir(system.file("shinyMobile/pwa", package = "OSUICode"))
-#' }
 update_f7_instance <- function(id, options, session = shiny::getDefaultReactiveDomain()) {
 
   # Convert any shiny tag into character so that toJSON does not cry
@@ -226,8 +224,8 @@ update_f7_instance <- function(id, options, session = shiny::getDefaultReactiveD
   }
   options <- listRenderTags(options)
 
-  message <- list(id = id, options = options)
-  send_custom_message("update-instance", message, session)
+  message <- list(id = session$ns(id), options = options)
+  session$sendCustomMessage("update-instance", message)
 }
 
 
@@ -259,7 +257,7 @@ add_f7_tooltip <- function(
   validate_selector(id, selector)
   if (!is.null(id)) id <- paste0("#", session$ns(id))
   options$targetEl <- id %OR% selector
-  send_custom_message("add_tooltip", options, session)
+  session$sendCustomMessage("add_tooltip", options)
 }
 
 
@@ -289,5 +287,5 @@ update_f7_tooltip <- function(
       text = text
     )
   )
-  send_custom_message("update_tooltip", message, session)
+  session$sendCustomMessage("update_tooltip", message)
 }

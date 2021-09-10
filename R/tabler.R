@@ -1087,9 +1087,7 @@ insert_tabler_tab <- function(inputId, tab, target, position = c("before", "afte
   message <- dropNulls(
     list(
       inputId = inputId,
-      # in production, only use processDeps(tab, session)
       content = tab,
-      # in production, only use processDeps(navbar_menu_item, session)
       link = navbar_menu_item,
       target = target,
       position = position,
@@ -1138,9 +1136,7 @@ insert_tabler_tab_2 <- function(inputId, tab, target, position = c("before", "af
   message <- dropNulls(
     list(
       inputId = inputId,
-      # in production, only use processDeps(tab, session)
       content = renderTags(tab),
-      # in production, only use processDeps(navbar_menu_item, session)
       link = renderTags(navbar_menu_item),
       target = target,
       position = position,
