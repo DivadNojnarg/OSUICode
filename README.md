@@ -13,7 +13,7 @@ The goal of OSUICode is to provide standalone code for the "Outstanding Shiny UI
 You can install the released version of OSUICode from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-remotes::install_github("DivadNojnarg/outstanding-shiny-ui-code")
+remotes::install_github("DivadNojnarg/OSUICode")
 ```
 
 ## Example
