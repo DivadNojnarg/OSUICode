@@ -89,13 +89,15 @@ tabler_page <- function(..., dark = TRUE, title = NULL, favicon = NULL){
   )
 
   # body
-  body_tag <- tags$body(
-    tags$div(
-      class = paste0("antialiased ", if(dark) "theme-dark"),
-      style = "display: block;",
-      tags$div(class = "page", ...)
+  body_tag <- add_tabler_deps(
+    tags$body(
+      tags$div(
+        class = paste0("antialiased ", if(dark) "theme-dark"),
+        style = "display: block;",
+        tags$div(class = "page", ...)
+      )
     )
-  ) %>% add_tabler_deps()
+  )
 
   tagList(head_tag, body_tag)
 }
@@ -276,14 +278,15 @@ tabler_navbar <- function(..., brand_url = NULL, brand_image = NULL, nav_menu, n
     }
   )
 
-  container_tag <- container_tag %>% tagAppendChildren(
+  container_tag <- tagAppendChildren(
+    container_tag,
     toggler_tag,
     brand_tag,
     dropdown_tag,
     navmenu_tag
   )
 
-  header_tag %>% tagAppendChild(container_tag)
+  tagAppendChild(header_tag, container_tag)
 
 }
 
@@ -519,8 +522,12 @@ tabler_card <- function(..., title = NULL, status = NULL, width = 6,
   main_wrapper <- div(class = paste0("col-md-", width))
   card_wrapper <- div(class = card_cl)
 
-  card_wrapper <- card_wrapper %>% tagAppendChildren(status_tag, body_tag)
-  main_wrapper %>% tagAppendChild(card_wrapper)
+  card_wrapper <- tagAppendChildren(
+    card_wrapper,
+    status_tag,
+    body_tag
+  )
+  tagAppendChild(main_wrapper, card_wrapper)
 }
 
 
@@ -649,7 +656,7 @@ tabler_switch <- function(inputId, label, value = FALSE, width = NULL) {
   )
 
   if (!is.null(value) && value) {
-    input_tag <- input_tag %>% tagAppendAttributes(checked = "checked")
+    input_tag <- tagAppendAttributes(input_tag, checked = "checked")
   }
 
   input_wrapper <- tags$label(
@@ -659,7 +666,8 @@ tabler_switch <- function(inputId, label, value = FALSE, width = NULL) {
     }
   )
 
-  input_wrapper %>% tagAppendChildren(
+  tagAppendChildren(
+    input_wrapper,
     input_tag,
     span(class = "form-check-label", label)
   )
@@ -839,7 +847,7 @@ tabler_toast <- function(id, title = NULL, subtitle = NULL, ..., img = NULL) {
     `data-toggle` = "toast"
   )
 
-  toast_wrapper %>% tagAppendChildren(toast_header, toast_body)
+  tagAppendChildren(toast_wrapper, toast_header, toast_body)
 }
 
 
@@ -936,14 +944,20 @@ tabler_dropdown <- function(..., id = NULL, title, subtitle = NULL, img = NULL) 
     }
   )
 
-  link_tag <- a(
-    href = "#",
-    id = id,
-    class = "nav-link d-flex lh-1 text-reset p-0",
-    `data-toggle` = "dropdown",
-    `aria-expanded` = "false"
-  ) %>%
-    tagAppendChildren(img_tag, title_tag)
+  link_tag <- tagAppendChildren(
+    a(
+      href = "#",
+      id = id,
+      class = "nav-link d-flex lh-1 text-reset p-0",
+      `data-toggle` = "dropdown",
+      `aria-expanded` = "false"
+    ),
+    img_tag,
+    title_tag
+  )
+
+
+
 
   dropdown_tag <- div(
     class = "dropdown-menu dropdown-menu-right",
@@ -951,7 +965,8 @@ tabler_dropdown <- function(..., id = NULL, title, subtitle = NULL, img = NULL) 
     ...
   )
 
-  div(class = "nav-item dropdown") %>% tagAppendChildren(
+  tagAppendChildren(
+    div(class = "nav-item dropdown"),
     link_tag,
     dropdown_tag
   )
