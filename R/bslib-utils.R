@@ -98,8 +98,8 @@ bslib_neon_theme <- bslib::bs_theme(
 #' Dark theme for bslib demo apps
 #'
 #' @export
-bslib_dark_theme <- bslib::bs_theme(version = 4) %>%
-  bslib::bs_theme_update(
+bslib_dark_theme <- bslib::bs_theme_update(
+    bslib::bs_theme(version = 4),
     bg = "black",
     fg = "white",
     primary = "orange"
