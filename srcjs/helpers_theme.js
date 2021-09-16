@@ -13,10 +13,10 @@ const setTouchStyle = (config) => {
         .appendTo("head");
     }
   }
-}
+};
 
 // Set color theme
-const setColorTheme = (config) => {
+const setColorTheme = (config, app) => {
   if (config.hasOwnProperty('color')) {
     let colorCSS = app.utils.colorThemeCSSProperties(config.color);
     $('<style>')
@@ -29,7 +29,7 @@ const setColorTheme = (config) => {
       }`)
       .appendTo("head");
   }
-}
+};
 
 // Filled theme
 const setFilledTheme = (config) => {
@@ -86,7 +86,7 @@ const setFilledTheme = (config) => {
       .html(`${filledCSS}`)
       .appendTo("head");
   }
-}
+};
 
 
 // Set dark mode
@@ -96,11 +96,11 @@ const setDarkMode = (config, app) => {
     app.methods.toggleDarkTheme();
   }
   return config.dark;
-}
+};
 
 export const initTheme = (config, app) => {
   setTouchStyle(config);
-  setColorTheme(config);
+  setColorTheme(config, app);
   setFilledTheme(config);
   setDarkMode(config, app);
-}
+};

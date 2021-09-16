@@ -26,4 +26,4 @@ export const setCustomDisconnect = (app) => {
       reconnectToast.close();
     });
   });
-}
+};

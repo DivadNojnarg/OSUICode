@@ -38,4 +38,4 @@ export const setPWA = (app) => {
       });
     });
   }, 500);
-}
+};

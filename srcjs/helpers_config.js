@@ -36,4 +36,4 @@ export const setConfig = () => {
   };
 
   return config;
-}
+};
