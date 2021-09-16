@@ -95,7 +95,6 @@ const setDarkMode = (config, app) => {
   if (config.dark) {
     app.methods.toggleDarkTheme();
   }
-  return config.dark;
 };
 
 export const initTheme = (config, app) => {

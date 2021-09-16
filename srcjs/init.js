@@ -11,8 +11,7 @@ $( document ).ready(function() {
   // init main view
   mainView = app.views.create('.view-main');
   // Set theme: dark mode, touch, filled, color, taphold css
-  let isDark = initTheme(config, app);
-  config.dark = isDark;
+  initTheme(config, app);
   // Set custom disconnect screen
   setCustomDisconnect(app);
   // PWA setup
