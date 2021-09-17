@@ -1,8 +1,8 @@
 // Import helper functions
-import { setConfig } from './helpers_config.js'
-import { initTheme } from './helpers_theme.js'
-import { setPWA } from './helpers_pwa.js'
-import { setCustomDisconnect } from './helpers_disconnect.js'
+import { setConfig } from './helpers_config.js';
+import { initTheme } from './helpers_theme.js';
+import { setPWA } from './helpers_pwa.js';
+import { setCustomDisconnect } from './helpers_disconnect.js';
 
 $( document ).ready(function() {
   let config = setConfig();
