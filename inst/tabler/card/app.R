@@ -3,6 +3,7 @@ library(OSUICode)
 library(apexcharter)
 library(dplyr)
 library(ggplot2)
+library(thematic)
 
 # test the card
 data("economics_long")
