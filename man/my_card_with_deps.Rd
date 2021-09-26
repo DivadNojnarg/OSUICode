@@ -2,7 +2,7 @@
 % Please edit documentation in R/htmtools-deps.R
 \name{my_card_with_deps}
 \alias{my_card_with_deps}
-\title{Simple BS4 Card with dependencies}
+\title{Simple Material Bootstrap card with dependencies}
 \usage{
 my_card_with_deps(...)
 }
@@ -13,5 +13,5 @@ my_card_with_deps(...)
 An HTML card
 }
 \description{
-Simple BS4 Card with dependencies
+Simple Material Bootstrap card with dependencies
 }

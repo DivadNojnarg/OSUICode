@@ -1,4 +1,4 @@
-#' Simple BS4 card without dependencies
+#' Simple Material Bootstrap card without dependencies
 #'
 #' This card is missing dependencies
 #'
@@ -8,35 +8,35 @@
 #' @export
 my_card <- function(...) {
   withTags(
-    div(
-      class = "card border-success mb-3",
-      div(class = "card-header bg-transparent border-success"),
-      div(
-        class = "card-body text-success",
-        h3(class = "card-title", "title"),
-        p(class = "card-text", ...)
-      ),
-      div(
-        class = "card-footer bg-transparent border-success",
-        "footer"
+    tags$div(
+      class = "card",
+      tags$div(
+        class = "card-body",
+        tags$h5(class = "card-title", "Card title"),
+        tags$p(class = "card-text", "Card content"),
+        tags$button(
+          type = "button",
+          class = "btn btn-primary",
+          "Button"
+        )
       )
     )
   )
 }
 
 
-bs4_cdn <- "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/"
-bs4_card_dep <- function() {
+mdb_cdn <- "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/"
+mdb_card_dep <- function() {
   htmlDependency(
-    name = "bs4_card",
+    name = "mdb-card",
     version = "1.0",
-    src = c(href = bs4_cdn),
-    stylesheet = "css/bootstrap.min.css"
+    src = c(href = mdb_cdn),
+    stylesheet = "mdb.min.css"
   )
 }
 
 
-#' Simple BS4 Card with dependencies
+#' Simple Material Bootstrap card with dependencies
 #'
 #' @inheritParams my_card
 #'
@@ -45,10 +45,10 @@ bs4_card_dep <- function() {
 my_card_with_deps <- function(...) {
   cardTag <- my_card(...)
   # attach dependencies (old way)
-  # htmltools::attachDependencies(cardTag, bs4_card_dep())
+  # htmltools::attachDependencies(cardTag, mdb_card_dep())
 
   # simpler way
-  tagList(cardTag, bs4_card_dep())
+  tagList(cardTag, mdb_card_dep())
 
 }
 

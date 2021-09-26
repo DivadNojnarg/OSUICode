@@ -2,7 +2,7 @@
 % Please edit documentation in R/htmtools-deps.R
 \name{my_card}
 \alias{my_card}
-\title{Simple BS4 card without dependencies}
+\title{Simple Material Bootstrap card without dependencies}
 \usage{
 my_card(...)
 }

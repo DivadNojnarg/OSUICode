@@ -1,23 +1,23 @@
 library(shiny)
 library(OSUICode)
 
-bs4_cdn <- "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/"
-bs4_css <- paste0(bs4_cdn, "css/bootstrap.min.css")
+mdb_cdn <- "https://cdnjs.cloudflare.com/ajax/libs/"
+mdb_css <- paste0(mdb_cdn, "mdb-ui-kit/3.6.0/mdb.min.css")
 
 shinyApp(
   ui = fluidPage(
+    tags$style("body {background: gainsboro;}"),
     # load the css code
     tags$head(
       tags$link(
         rel = "stylesheet",
         type = "text/css",
-        href = bs4_css
+        href = mdb_css
       )
     ),
     fluidRow(
       column(
         width = 6,
-        align = "center",
         br(),
         my_card("Card Content")
       )
