@@ -1,3 +1,20 @@
+#' NES theme for shiny
+#'
+#' See https://rstudio.github.io/bslib/articles/bslib.html#add-rules
+#'
+#' @export
+nes_theme <- bslib::bs_theme(
+  bg = "#e5e5e5", fg = "#0d0c0c", primary = "#dd2020",
+  base_font = bslib::font_google("Press Start 2P"),
+  code_font = bslib::font_google("Press Start 2P"),
+  "font-size-base" = "0.75rem", "enable-rounded" = FALSE
+) %>%
+  bslib::bs_add_rules(
+    '@import "https://unpkg.com/nes.css@latest/css/nes.min.css"'
+  )
+
+
+
 #' Bootstrap 4 toggle input
 #'
 #' A Bootstrap 4 toggle input similar to a checkbox
