@@ -2,6 +2,8 @@ library(shiny)
 library(bs4Dash)
 library(OSUICode)
 
+usr <- "https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+
 shinyApp(
   ui = dashboardPage(
     header = dashboardHeader(
@@ -22,7 +24,7 @@ shinyApp(
       insertMessageItem(
         messageItem(
           message = paste("message", input$add),
-          image = "https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg",
+          image = usr,
           from = "Divad Nojnarg",
           time = "today",
           color = "success"
