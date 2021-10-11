@@ -33,7 +33,10 @@ server <- function(input, output, session) {
       options = list(
         width = dummy_task(),
         title = tagList(
-          shinydashboardPlus::dashboardBadge("New", color = "red"),
+          shinydashboardPlus::dashboardBadge(
+            "New",
+            color = "red"
+          ),
           "New title"
         )
       )
