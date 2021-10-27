@@ -23,7 +23,8 @@ run_example <- function(path, package = "OSUICode") {
 #' Run Shiny app example
 #'
 #' @param path App location.
-#' @param view_code Whether to print the app code. Default to TRUE.
+#' @param view_code Whether to print the app code.
+#' TRUE if document is HTML output, FALSE otherwise.
 #' @param package Where to take the example from. Default
 #' to current package.
 #' @export
@@ -32,7 +33,7 @@ run_example <- function(path, package = "OSUICode") {
 #' if (interactive()) {
 #'  get_example("dj-system")
 #' }
-get_example <- function(path, view_code = TRUE,
+get_example <- function(path, view_code = knitr::is_html_output(),
                         package = "OSUICode") {
   cat(
     cat(
