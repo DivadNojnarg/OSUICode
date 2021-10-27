@@ -40,8 +40,8 @@ get_example <- function(path, view_code = knitr::is_html_output(),
       paste0(
         "### RUN ### \n",
         "# OSUICode::run_example( \n",
-        "#  \"", path, "\" \n",
-        "#   \"package = \"", package, "\" \n",
+        "#  \"", path, "\", \n",
+        "#   package = \"", package, "\" \n",
         "# ) \n",
         if (view_code) "\n",
         collapse = "\n"
