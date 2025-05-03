@@ -3,20 +3,22 @@ library(shiny)
 ui <- fluidPage(
   tags$script(
     HTML("
-      $(document).on(
-        'shiny:inputchanged',
-        function(event) {
-          Shiny.setInputValue(
-            'last_changed',
-            {
-              name: event.name,
-              value: event.value,
-              type: event
-                .binding
-                .name
-                .split('.')[1]
-            }
-          );
+      $(document).ready(function() {
+        $('#test').on(
+          'shiny:inputchanged',
+          function(event) {
+            Shiny.setInputValue(
+              'last_changed',
+              {
+                name: event.name,
+                value: event.value,
+                type: event
+                  .binding
+                  .name
+                  .split('.')[1]
+              }
+            );
+        });
       });"
     )),
   textInput("test", "Test"),
